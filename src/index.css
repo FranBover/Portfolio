@@ -1,0 +1,152 @@
+@import "tailwindcss";
+
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+html, body, #root { height: 100%; }
+html, body { margin: 0; padding: 0; }
+
+/* (opcional) color de fondo base, si querés que
+   donde no haya sección se vea azul */
+body { background: var(--color-blue); }
+
+/* suavizado para que se vea más nítido */
+body { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; text-rendering: optimizeLegibility; }
+
+
+
+/* --- Fondo animado estilo "scroll up" --- */
+@keyframes bg-scroll-up {
+  from { background-position: 0 0; }
+  to   { background-position: 0 -780px; } /* altura aprox del tile */
+}
+
+/* Utilidad para el patrón */
+.bg-kubrick {
+  background-image: url("/public/kubrik.png");
+}
+
+
+
+
+/* =========================
+   TOKENS en :root (sin @theme)
+   ========================= */
+:root {
+  /* Colores */
+  --color-blue:   #0B1E2D;
+  --color-yellow: #DFAF2B;
+  --color-orange: #D45F1C;
+  --color-black:  #000000;
+  --color-white:  #E6D5B8; /* tu “white” crema */
+
+  /* Tipos (familias) */
+  --font-display-1: "Montserrat", ui-sans-serif, system-ui, sans-serif;     /* H1 (900) */
+  --font-display-2: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;  /* H2/H3 (400) */
+  --font-copy:      "IBM Plex Serif", ui-serif, Georgia, serif;             /* P (400) */
+  --font-mono:      "Roboto Mono", ui-monospace, SFMono-Regular, monospace; /* CTA (700) */
+
+  /* Radius y container */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --container-max: 1236px;
+
+  /* (Opcional) Sombras y movimiento */
+  --shadow-card: 0 8px 20px rgba(0,0,0,.06);
+  --shadow-pop:  0 16px 40px rgba(0,0,0,.12);
+  --motion-fast: 200ms;
+  --motion-norm: 300ms;
+
+  --btn-h: 39px;
+  --btn-pad-x: 25px;
+  --btn-gap: 10px;
+  --btn-radius: 20px;
+
+}
+
+/* =========================
+   BASE
+   ========================= */
+html, body { height: 100%; }
+body {
+  /* sin bg global; lo elegís por sección */
+  color: var(--color-blue);
+  font-family: var(--font-copy);
+  line-height: 1.6;
+}
+
+/* =========================
+   TIPOGRAFÍAS RESPONSIVE (según tu tabla)
+   ========================= */
+.h1 {
+  font-family: var(--font-display-1);
+  font-weight: 900;
+  @apply text-[48px] md:text-[80px] lg:text-[96px] leading-tight;
+}
+.h2 {
+  font-family: var(--font-display-2);
+  font-weight: 400;
+  @apply text-[36px] md:text-[48px] lg:text-[56px] leading-snug;
+}
+.h3 {
+  font-family: var(--font-display-2);
+  font-weight: 400;
+  @apply text-[24px] md:text-[32px] lg:text-[40px] leading-snug;
+}
+.p {
+  font-family: var(--font-copy);
+  font-weight: 400;
+  @apply text-[16px] md:text-[20px] lg:text-[24px];
+}
+.cta {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  @apply text-[14px] md:text-[16px] lg:text-[18px];
+
+  .nav-link {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  /* tamaños tipo .cta */
+  @apply text-[14px] md:text-[16px] lg:text-[18px];
+  /* leve tracking como en Figma */
+  letter-spacing: 0.02em;
+}
+
+}
+
+/* =========================
+   UTILIDADES
+   ========================= */
+.container-max { @apply mx-auto w-full max-w-[--container-max] px-4 sm:px-6 lg:px-8; }
+
+.text-brand { color: var(--color-blue); }
+.bg-brand   { background: var(--color-blue); }
+.bg-yellow  { background: var(--color-yellow); }
+.bg-orange  { background: var(--color-orange); }
+.text-cream { color: var(--color-white); }
+.bg-cream   { background: var(--color-white); }
+
+.shadow-card { box-shadow: var(--shadow-card); }
+.shadow-pop  { box-shadow: var(--shadow-pop); }
+
+.rounded-sm { border-radius: var(--radius-sm); }
+.rounded-md { border-radius: var(--radius-md); }
+.rounded-lg { border-radius: var(--radius-lg); }
+
+.nav-link {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  /* tamaños tipo .cta */
+  @apply text-[14px] md:text-[16px] lg:text-[18px];
+  /* leve tracking como en Figma */
+  letter-spacing: 0.02em;
+}
+
+.section-title {
+  font-family: var(--font-display-1);
+  font-weight: 900;
+  @apply text-[32px] md:text-[48px] lg:text-[56px] leading-[0.95];
+}
