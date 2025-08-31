@@ -1,0 +1,80 @@
+name: Deploy Portfolio
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+concurrency: deploy-portfolio
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+
+      - name: Pack dist
+        run: tar -czf dist.tar.gz -C dist .
+
+      - name: Prepare release dir (server)
+        uses: appleboy/ssh-action@v1.2.0
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          port: ${{ secrets.SSH_PORT }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            set -euo pipefail
+            mkdir -p /var/www/portfolio/releases/${{ github.run_number }}
+
+      - name: Upload tarball
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          port: ${{ secrets.SSH_PORT }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          source: dist.tar.gz
+          target: /var/www/portfolio/releases/${{ github.run_number }}/
+
+      - name: Activate, test, healthcheck (with auto-rollback)
+        uses: appleboy/ssh-action@v1.2.0
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          port: ${{ secrets.SSH_PORT }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            set -euo pipefail
+
+            RDIR="/var/www/portfolio/releases/${{ github.run_number }}"
+            CURRENT_OLD="$(readlink -f /var/www/portfolio/current || true)"
+
+            tar -xzf "$RDIR/dist.tar.gz" -C "$RDIR"
+            rm -f "$RDIR/dist.tar.gz"
+
+            ln -sfn "$RDIR" /var/www/portfolio/current
+
+            sudo nginx -t
+            sudo systemctl reload nginx
+
+            # Healthcheck al vhost
+            if ! curl -fsS -H "Host: bover.site" http://127.0.0.1/ >/dev/null; then
+              echo "Healthcheck FAILED, rolling back..."
+              if [ -n "$CURRENT_OLD" ] && [ -d "$CURRENT_OLD" ]; then
+                ln -sfn "$CURRENT_OLD" /var/www/portfolio/current
+                sudo systemctl reload nginx || true
+              fi
+              exit 1
+            fi
