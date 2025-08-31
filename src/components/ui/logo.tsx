@@ -1,4 +1,4 @@
-import logo from "../../assets/logo.png";
+import logo from "../../assets/Logo.png";
 export function Logo() {
   return (
     <a href="#" className="inline-flex items-center gap-2">
