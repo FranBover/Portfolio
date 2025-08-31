@@ -24,7 +24,7 @@ export default function Hero() {
             {/* Aspect ratio 4:3 como tu mock; ajustá si tu GIF es distinto */}
             <div className="relative aspect-[4/3] w-full overflow-hidden rounded-[20px]">
               <img
-                src="/public/gif.gif"             // ← coloca tu archivo en /public/hero.gif
+                src="/gif.gif"             // ← coloca tu archivo en /public/hero.gif
                 alt="Reel visual de proyectos"
                 className="h-full w-full object-cover"
                 loading="lazy"
