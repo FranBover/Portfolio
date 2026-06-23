@@ -1,5 +1,13 @@
 import { Container } from "../ui/Container";
-import ProjectCard, { type Project } from "./ProjectCard"; 
+import ProjectCard, { type Project } from "./ProjectCard";
+import { Reveal } from "../ui/Reveal";
+import { SceneLabel } from "../ui/SceneLabel";
+
+/** Numera como tracks de vinilo: Lado A primero, Lado B la segunda mitad. */
+function trackFor(index: number, total: number): string {
+  const half = Math.ceil(total / 2);
+  return index < half ? `A${index + 1}` : `B${index - half + 1}`;
+}
 
 const PROJECTS: Project[] = [
   {
@@ -33,22 +41,6 @@ const PROJECTS: Project[] = [
       "Proyecto en React; fondo que se adapta según el clima. Integración con librerías.",
     tech: ["React"],
     github: "https://github.com/FranBover/reloj-clima",
-  },
-  {
-    title: "Vinto",
-    image: "/projects/vinto.png",
-    description:
-      "Gestión de pedidos: Admin Panel, tienda online y API. En desarrollo.",
-    tech: ["React", "C#", "SQL"],
-    github: "https://github.com/FranBover",
-  },
-  {
-    title: "Automations",
-    image: "/projects/n8n.png",
-    description:
-      "Automatizaciones con n8n: workflows, agentes y orquestación.",
-    tech: ["n8n"],
-    github: "https://github.com/FranBover",
   },
 ];
 
@@ -94,9 +86,15 @@ export default function Projects() {
       {/* === Grid de tarjetas === */}
       <div className="py-8 md:py-12">
         <Container>
+          <Reveal className="mb-6 flex justify-center text-[var(--color-blue)]">
+            <SceneLabel>ESC. 03 · Proyectos</SceneLabel>
+          </Reveal>
+
           <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 items-stretch">
-            {PROJECTS.map((p) => (
-              <ProjectCard key={p.title} {...p} />
+            {PROJECTS.map((p, i) => (
+              <Reveal key={p.title} delay={i * 90} className="h-full">
+                <ProjectCard {...p} track={trackFor(i, PROJECTS.length)} />
+              </Reveal>
             ))}
           </div>
         </Container>

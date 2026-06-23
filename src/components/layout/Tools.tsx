@@ -1,4 +1,6 @@
 import { Container } from "../ui/Container";
+import { Reveal } from "../ui/Reveal";
+import { SceneLabel } from "../ui/SceneLabel";
 
 /** Tarjeta con sombra dura + noise */
 function ToolCard({
@@ -60,11 +62,18 @@ export default function Tools() {
       </div>
 
       {/* ====== Contenido con columnas decorativas y grid de tarjetas ====== */}
-      <div className="py-8 md:py-12">
+      <div className="relative py-8 md:py-12">
+        {/* textura papel sutil */}
+        <div aria-hidden className="paper-texture pointer-events-none absolute inset-0" />
         <Container>
+          <Reveal className="mb-6 flex justify-center text-[var(--color-blue)]">
+            <SceneLabel>ESC. 02 · Herramientas</SceneLabel>
+          </Reveal>
+
           {/* 3 columnas: líneas izq | grid | líneas der
         Reservamos ancho fijo para las líneas */}
           <div className="
+            relative
             grid
             md:grid-cols-[56px_minmax(0,1fr)_56px]
             lg:grid-cols-[72px_minmax(0,1fr)_72px]
@@ -73,49 +82,55 @@ export default function Tools() {
             {/* Columna izq */}
             <div className="hidden md:flex flex-col items-center">
               <img src="/tools/columna1.png" alt="" className="w-[56px] lg:w-[72px] h-auto" />
-              
             </div>
 
             {/* Grid central */}
             <div className="mx-auto w-full max-w-[980px] lg:max-w-[1120px]">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
                 {/* Diseño */}
-                <ToolCard title="Diseño">
-                  <img src="/tools/photoshop.png" alt="Photoshop" className="h-12 md:h-14" />
-                  <img src="/tools/figma.png" alt="Figma" className="h-12 md:h-14" />
-                </ToolCard>
+                <Reveal delay={0}>
+                  <ToolCard title="Diseño">
+                    <img src="/tools/photoshop.png" alt="Photoshop" className="tool-ico h-12 md:h-14" />
+                    <img src="/tools/figma.png" alt="Figma" className="tool-ico h-12 md:h-14" />
+                  </ToolCard>
+                </Reveal>
 
                 {/* Front-end */}
-                <ToolCard title="Front-end">
-                  <div className="flex items-center gap-3">
-                    <img src="/tools/html.png" alt="HTML" className="h-10 md:h-11" />
-                    <img src="/tools/css.png" alt="CSS" className="h-10 md:h-11" />
-                    <img src="/tools/js.png" alt="JavaScript" className="h-9 md:h-10" />
-                  </div>
-                  <img src="/tools/react.png" alt="React" className="h-14 md:h-16" />
-                </ToolCard>
+                <Reveal delay={90}>
+                  <ToolCard title="Front-end">
+                    <div className="flex items-center gap-3">
+                      <img src="/tools/html.png" alt="HTML" className="tool-ico h-10 md:h-11" />
+                      <img src="/tools/css.png" alt="CSS" className="tool-ico h-10 md:h-11" />
+                      <img src="/tools/js.png" alt="JavaScript" className="tool-ico h-9 md:h-10" />
+                    </div>
+                    <img src="/tools/react.png" alt="React" className="tool-ico h-14 md:h-16" />
+                  </ToolCard>
+                </Reveal>
 
                 {/* Back-end */}
-                <ToolCard title="Back-end">
-                  <img src="/tools/net.png" alt=".NET" className="h-12 md:h-14" />
-                  <img src="/tools/csharp.png" alt="C#" className="h-12 md:h-14" />
-                  <img src="/tools/sql.png" alt="SQL" className="h-12 md:h-14" />
-                </ToolCard>
+                <Reveal delay={180}>
+                  <ToolCard title="Back-end">
+                    <img src="/tools/net.png" alt=".NET" className="tool-ico h-12 md:h-14" />
+                    <img src="/tools/csharp.png" alt="C#" className="tool-ico h-12 md:h-14" />
+                    <img src="/tools/sql.png" alt="SQL" className="tool-ico h-12 md:h-14" />
+                  </ToolCard>
+                </Reveal>
 
                 {/* Otras… */}
-                <ToolCard title="Otras…">
-                  <img src="/tools/premiere.png" alt="Premiere" className="h-12 md:h-14" />
-                  <img src="/tools/confluence.png" alt="Confluence" className="h-10 md:h-12" />
-                  <img src="/tools/n8n.png" alt="n8n" className="h-10 md:h-12" />
-                  <img src="/tools/touchdesigner.png" alt="TouchDesigner" className="h-6 md:h-7" />
-                </ToolCard>
+                <Reveal delay={270}>
+                  <ToolCard title="Otras…">
+                    <img src="/tools/premiere.png" alt="Premiere" className="tool-ico h-12 md:h-14" />
+                    <img src="/tools/confluence.png" alt="Confluence" className="tool-ico h-10 md:h-12" />
+                    <img src="/tools/n8n.png" alt="n8n" className="tool-ico h-10 md:h-12" />
+                    <img src="/tools/touchdesigner.png" alt="TouchDesigner" className="tool-ico h-6 md:h-7" />
+                  </ToolCard>
+                </Reveal>
               </div>
             </div>
 
             {/* Columna der */}
             <div className="hidden md:flex flex-col items-center">
               <img src="/tools/columna2.png" alt="" className="w-[56px] lg:w-[72px] h-auto" />
-              
             </div>
           </div>
         </Container>

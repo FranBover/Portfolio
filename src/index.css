@@ -42,6 +42,10 @@ body { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; 
   --color-black:  #000000;
   --color-white:  #E6D5B8; /* tu “white” crema */
 
+  /* Acentos easter-egg (usar con cuentagotas) */
+  --color-red:    #7a1620; /* "cuarto rojo" */
+  --color-purple: #5b2a86;
+
   /* Tipos (familias) */
   --font-display-1: "Montserrat", ui-sans-serif, system-ui, sans-serif;     /* H1 (900) */
   --font-display-2: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;  /* H2/H3 (400) */
@@ -149,4 +153,197 @@ body {
   font-family: var(--font-display-1);
   font-weight: 900;
   @apply text-[32px] md:text-[48px] lg:text-[56px] leading-[0.95];
+}
+
+/* =========================
+   DIRECCIÓN DE ARTE
+   "Artefacto analógico + cine + funk"
+   ========================= */
+
+/* Selección naranja sobre navy */
+::selection { background: var(--color-orange); color: var(--color-blue); }
+
+/* ---- Overlay global: grano de película + viñeta ---- */
+.fx-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 45;
+  pointer-events: none;
+}
+.fx-grain {
+  position: absolute;
+  inset: -12px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 140px 140px;
+  opacity: 0.07;
+  mix-blend-mode: overlay;
+}
+.fx-vignette {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(120% 120% at 50% 50%, transparent 58%, rgba(0, 0, 0, 0.45) 100%);
+  opacity: 0.55;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .fx-grain { animation: grain-shift 1.1s steps(5) infinite; }
+}
+@keyframes grain-shift {
+  0%   { transform: translate(0, 0); }
+  20%  { transform: translate(-4px, 3px); }
+  40%  { transform: translate(3px, -4px); }
+  60%  { transform: translate(-3px, -3px); }
+  80%  { transform: translate(4px, 4px); }
+  100% { transform: translate(0, 0); }
+}
+
+/* ---- Grano local reutilizable (sobre gif / fondos) ---- */
+.fx-grain-static {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 140px 140px;
+  opacity: 0.10;
+  mix-blend-mode: overlay;
+}
+
+/* ---- Reveal (IntersectionObserver) ---- */
+.reveal {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+  will-change: opacity, transform;
+}
+.reveal[data-shown="true"] { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) {
+  .reveal { opacity: 1; transform: none; transition: none; }
+}
+
+/* ---- Etiqueta de sección estilo claqueta ---- */
+.scene-label {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  font-size: 11px;
+  text-transform: uppercase;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  opacity: 0.9;
+}
+.scene-slate {
+  width: 20px;
+  height: 13px;
+  border: 1.5px solid currentColor;
+  background-image: repeating-linear-gradient(
+    115deg,
+    currentColor 0 3px,
+    transparent 3px 6px
+  );
+  flex: none;
+}
+
+/* ---- Subrayado de nav que crece desde el centro ---- */
+.link-underline { position: relative; }
+.link-underline::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -6px;
+  height: 2px;
+  width: 0;
+  background: currentColor;
+  transform: translateX(-50%);
+  transition: width 0.25s ease;
+}
+.link-underline:hover::after,
+.link-underline:focus-visible::after { width: 100%; }
+@media (prefers-reduced-motion: reduce) {
+  .link-underline::after { transition: none; }
+}
+
+/* ---- Logo vinilo (gira en hover) ---- */
+.logo-spin { transition: transform 1.2s ease; }
+.group:hover .logo-spin,
+.logo-spin:hover { transform: rotate(360deg); }
+@media (prefers-reduced-motion: reduce) {
+  .logo-spin { transition: none; }
+  .group:hover .logo-spin,
+  .logo-spin:hover { transform: none; }
+}
+
+/* ---- Tira de cine (Hero) ---- */
+.film-strip {
+  position: relative;
+  background: #0a0a0a;
+  padding: 12px 18px;
+  border-radius: 16px;
+}
+.film-strip::before,
+.film-strip::after {
+  content: "";
+  position: absolute;
+  top: 10px;
+  bottom: 10px;
+  width: 8px;
+  background-image: repeating-linear-gradient(
+    to bottom,
+    var(--color-white) 0 9px,
+    transparent 9px 20px
+  );
+  opacity: 0.85;
+}
+.film-strip::before { left: 5px; }
+.film-strip::after { right: 5px; }
+
+/* ---- Letras recortadas (About): salto con resorte ---- */
+.cut-letter {
+  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1),
+    filter 0.35s ease;
+}
+@media (prefers-reduced-motion: reduce) {
+  .cut-letter { transition: none; }
+}
+
+/* ---- Íconos de herramientas: salto/rotación funk ---- */
+.tool-ico {
+  transition: transform 0.28s cubic-bezier(0.34, 1.56, 0.64, 1);
+  will-change: transform;
+}
+.tool-ico:hover { transform: translateY(-6px) rotate(-6deg); }
+.tool-ico:nth-child(2n):hover { transform: translateY(-6px) rotate(6deg); }
+.tool-ico:nth-child(3n):hover { transform: translateY(-7px) rotate(-4deg); }
+@media (prefers-reduced-motion: reduce) {
+  .tool-ico { transition: none; }
+  .tool-ico:hover { transform: none; }
+}
+
+/* ---- Textura papel sutil ---- */
+.paper-texture {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='p'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23p)'/%3E%3C/svg%3E");
+  background-size: 160px 160px;
+  opacity: 0.06;
+  mix-blend-mode: multiply;
+}
+
+/* ---- Divisor chevrons "cuarto rojo" (Contact) ---- */
+.chevron-divider {
+  height: 14px;
+  background-color: var(--color-white);
+  background-image:
+    linear-gradient(135deg, var(--color-red) 25%, transparent 25%),
+    linear-gradient(225deg, var(--color-red) 25%, transparent 25%),
+    linear-gradient(315deg, var(--color-red) 25%, transparent 25%),
+    linear-gradient(45deg, var(--color-red) 25%, transparent 25%);
+  background-position: 10px 0, 10px 0, 0 0, 0 0;
+  background-size: 20px 20px;
+  background-repeat: repeat;
+}
+
+/* ---- Pop de iconos sociales ---- */
+.social-pop {
+  transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+  will-change: transform;
+}
+.group:hover .social-pop { transform: translateY(-2px) scale(1.15); }
+@media (prefers-reduced-motion: reduce) {
+  .social-pop { transition: none; }
+  .group:hover .social-pop { transform: none; }
 }

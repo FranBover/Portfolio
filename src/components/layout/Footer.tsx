@@ -1,79 +1,118 @@
 // src/components/layout/Footer.tsx
 import { Container } from "../ui/Container";
 
+const NAV = [
+  { href: "#about", label: "Sobre mí" },
+  { href: "#tools", label: "Herramientas" },
+  { href: "#vinto", label: "Vinto" },
+  { href: "#projects", label: "Proyectos" },
+  { href: "#contact", label: "Contacto" },
+];
+
+const SOCIALS = [
+  { label: "WhatsApp", icon: "/contact/whatsapp.svg", href: "https://wa.me/5493512308157?text=Hola%20Fran%2C%20te%20escribo%20desde%20tu%20portafolio" },
+  { label: "GitHub", icon: "/contact/github.svg", href: "https://github.com/FranBover" },
+  { label: "LinkedIn", icon: "/contact/linkedin.svg", href: "https://www.linkedin.com/in/francisco-bover-2757a0323/" },
+  { label: "@franfranfranfrna", icon: "/contact/instagram.svg", href: "https://www.instagram.com/franfranfranfrna/" },
+];
+
+const kicker =
+  "font-mono text-[11px] tracking-[0.22em] uppercase text-[var(--color-yellow)]/70";
+
 export default function Footer() {
   return (
     <footer id="footer" className="relative bg-black text-[var(--color-yellow)]">
-      {/* Franja decorativa superior */}
-      <div className="relative">
-        <Container>
-            <div className="relative h-[90px] sm:h-[110px]">
-            {/* Rayas (ancho responsivo controlado) */}
-            <img
-                src="/footer/rayas.png"
+      {/* Borde superior de separación */}
+      <div aria-hidden className="h-[3px] w-full bg-[var(--color-yellow)]/30" />
+
+      <Container>
+        {/* ===== Cuerpo ===== */}
+        <div className="grid gap-10 py-12 md:grid-cols-[1.5fr_1fr_1fr]">
+          {/* Marca */}
+          <div>
+            <a href="#top" className="group inline-flex items-center gap-3">
+              <img
+                src="/footer/espiral.png"
                 alt=""
                 aria-hidden
-                className="absolute left-0 top-3 w-[min(680px,72vw)] h-auto select-none pointer-events-none"
-            />
+                className="logo-spin h-11 w-11 select-none"
+              />
+              <span
+                className="text-[22px] leading-none"
+                style={{ fontFamily: "var(--font-display-1)", fontWeight: 900 }}
+              >
+                Francisco Bover
+              </span>
+            </a>
 
-           
+            <p
+              className="mt-4 max-w-[42ch] text-[15px] leading-relaxed text-[var(--color-yellow)]/85"
+              style={{ fontFamily: "var(--font-copy)" }}
+            >
+              Desarrollo creativo, diseño visual y soluciones con código. Hecho a
+              mano desde Córdoba, Argentina.
+            </p>
+
+            {/* Dos líneas de homenaje (las completa Fran) */}
+            <div className="mt-5 space-y-1 font-mono text-[11px] text-[var(--color-yellow)]/55">
+              <p>{/* frase de cine — la pongo yo */}</p>
+              <p>{/* frase de funk — la pongo yo */}</p>
             </div>
-        </Container>
+          </div>
+
+          {/* Mapa del sitio */}
+          <nav aria-label="Secciones del sitio">
+            <h3 className={kicker}>Mapa</h3>
+            <ul className="mt-4 space-y-3">
+              {NAV.map((l) => (
+                <li key={l.href}>
+                  <a href={l.href} className="nav-link link-underline">
+                    {l.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </nav>
+
+          {/* Redes */}
+          <aside>
+            <h3 className={kicker}>Redes</h3>
+            <ul className="mt-4 space-y-3">
+              {SOCIALS.map((s) => (
+                <li key={s.label} className="group flex items-center gap-3">
+                  <img
+                    src={s.icon}
+                    alt=""
+                    className="social-pop h-5 w-5 shrink-0"
+                    aria-hidden
+                  />
+                  <a
+                    href={s.href}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="nav-link link-underline truncate"
+                  >
+                    {s.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </aside>
         </div>
 
-
-      {/* Contenido */}
-      <div className="py-8">
-        <Container>
-          <div className="grid gap-8 md:grid-cols-2">
-            {/* Links del sitio (columna izquierda) */}
-            <nav aria-label="Secciones del sitio" className="space-y-3">
-              <a href="#about" className="nav-link block hover:underline">Sobre mí</a>
-              <a href="#tools" className="nav-link block hover:underline">Herramientas</a>
-              <a href="#projects" className="nav-link block hover:underline">Proyectos</a>
-              
-
-              {/* Botón Inicio */}
-              <div className="pt-2">
-                <a
-                  href="#top"
-                  className="inline-flex items-center rounded-full border-2 border-[var(--color-yellow)] px-3 py-1 text-[12px] md:text-[14px]
-                             hover:bg-[var(--color-yellow)] hover:text-black transition-colors"
-                >
-                  Inicio
-                </a>
-              </div>
-            </nav>
-
-            {/* Redes (columna derecha) */}
-            <aside className="md:text-right">
-              <ul className="space-y-3">
-                <li className="flex items-center gap-2 md:justify-end">
-                  <img src="/contact/whatsapp.svg" alt="" className="h-5 w-5" aria-hidden />
-                  <a className="nav-link hover:underline" href="https://wa.me/5493512308157?text=Hola%20Fran%2C%20te%20escribo%20desde%20tu%20portafolio" target="_blank" rel="noreferrer">WhatsApp</a>
-                </li>
-                <li className="flex items-center gap-2 md:justify-end">
-                  <img src="/contact/github.svg" alt="" className="h-5 w-5" aria-hidden />
-                  <a className="nav-link hover:underline" href="https://github.com/FranBover" target="_blank" rel="noreferrer">GitHub</a>
-                </li>
-                <li className="flex items-center gap-2 md:justify-end">
-                  <img src="/contact/linkedin.svg" alt="" className="h-5 w-5" aria-hidden />
-                  <a className="nav-link hover:underline" href="https://www.linkedin.com/in/francisco-bover" target="_blank" rel="noreferrer">LinkedIn</a>
-                </li>
-                <li className="flex items-center gap-2 md:justify-end">
-                  <img src="/contact/instagram.svg" alt="" className="h-5 w-5" aria-hidden />
-                  <a className="nav-link hover:underline" href="https://instagram.com/franfranfranfrna" target="_blank" rel="noreferrer">@franfranfranfna</a>
-                </li>
-              </ul>
-            </aside>
-          </div>
-
-          {/* línea final */}
-          <div className="mt-8 border-t border-white/10 pt-4 text-xs opacity-70">
-            © {new Date().getFullYear()} Francisco Bover — 
-          </div>
-        </Container>
-      </div>
+        {/* ===== Barra inferior ===== */}
+        <div className="flex flex-col items-center justify-between gap-3 border-t border-white/10 py-5 sm:flex-row">
+          <p className="font-mono text-[11px] text-[var(--color-yellow)]/60">
+            © {new Date().getFullYear()} Francisco Bover · Hecho a mano en Córdoba
+          </p>
+          <a
+            href="#top"
+            className="inline-flex items-center gap-2 rounded-full border-2 border-[var(--color-yellow)] px-4 py-1.5 text-[12px] font-mono uppercase tracking-[0.12em] transition-colors hover:bg-[var(--color-yellow)] hover:text-black"
+          >
+            Volver arriba ↑
+          </a>
+        </div>
+      </Container>
     </footer>
   );
 }

@@ -19,18 +19,20 @@ export default function Hero() {
                 </h2>
          </div> 
 
-          {/* GIF */}
+          {/* GIF dentro de una tira de cine (sprocket holes + grano) */}
           <div className="md:col-span-5 lg:col-span-6">
-            {/* Aspect ratio 4:3 como tu mock; ajustá si tu GIF es distinto */}
-            <div className="relative aspect-[4/3] w-full overflow-hidden rounded-[20px]">
-              <img
-                src="/gif.gif"             // ← coloca tu archivo en /public/hero.gif
-                alt="Reel visual de proyectos"
-                className="h-full w-full object-cover"
-                loading="lazy"
-              />
-              {/* si querés borde fino amarillo: descomenta la línea de abajo */}
-              {/* <div className="pointer-events-none absolute inset-0 ring-2 ring-[var(--color-yellow)] rounded-[20px]" /> */}
+            <div className="film-strip">
+              {/* Aspect ratio 4:3 como tu mock; ajustá si tu GIF es distinto */}
+              <div className="relative aspect-[4/3] w-full overflow-hidden rounded-[10px]">
+                <img
+                  src="/gif.gif"             // ← coloca tu archivo en /public/gif.gif
+                  alt="Reel visual de proyectos"
+                  className="h-full w-full object-cover"
+                  loading="lazy"
+                />
+                {/* grano por encima del gif */}
+                <div className="fx-grain-static pointer-events-none absolute inset-0" aria-hidden />
+              </div>
             </div>
           </div>
         </div>

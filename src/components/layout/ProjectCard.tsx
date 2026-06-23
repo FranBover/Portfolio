@@ -6,14 +6,18 @@ export type Project = {
   description: string;
   tech: string[];
   github: string;
+  /** Número de track de vinilo, ej. "A1", "B2" */
+  track?: string;
 };
 
-export default function ProjectCard({ title, image, description, tech, github }: Project) {
+export default function ProjectCard({ title, image, description, tech, github, track }: Project) {
   return (
     <article
       className="
         group relative h-full flex flex-col
         bg-[var(--color-blue)] rounded-[18px] p-4 md:p-5 text-[var(--color-white)]
+        transition-transform duration-200 hover:-translate-y-1
+        motion-reduce:transition-none motion-reduce:hover:translate-y-0
       "
     >
       {/* semáforos */}
@@ -40,7 +44,7 @@ export default function ProjectCard({ title, image, description, tech, github }:
       </div>
 
       {/* ===== Media con marco fijo (16:9) y sombra dura ===== */}
-      <div className="relative mt-6 rounded-[20px] bg-white p-3 shadow-[8px_8px_0_#091A27]">
+      <div className="relative mt-6 rounded-[20px] bg-white p-3 shadow-[8px_8px_0_#091A27] transition-shadow duration-200 group-hover:shadow-[12px_12px_0_#091A27]">
         <div className="relative aspect-[16/9] w-full overflow-hidden rounded-[10px]">
           <img
             src={image}
@@ -74,8 +78,16 @@ export default function ProjectCard({ title, image, description, tech, github }:
       </p>
 
       {/* Botón pegado abajo para que todas queden iguales */}
-      <div className="mt-auto pt-4">
+      <div className="mt-auto pt-4 flex items-center justify-between gap-3">
         <Button href={github}>Ver en GitHub</Button>
+        {track && (
+          <span
+            className="font-mono text-[11px] tracking-[0.18em] text-[var(--color-yellow)] opacity-80 select-none"
+            aria-label={`Track ${track}`}
+          >
+            {track}
+          </span>
+        )}
       </div>
     </article>
   );

@@ -34,7 +34,7 @@ export default function Navbar() {
                 <li key={l.href}>
                   <a
                     href={l.href}
-                    className="nav-link text-[var(--color-yellow)] underline-offset-[6px] decoration-2 decoration-[var(--color-yellow)] hover:underline"
+                    className="nav-link link-underline text-[var(--color-yellow)]"
                   >
                     {l.label}
                   </a>
