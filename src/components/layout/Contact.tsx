@@ -1,6 +1,9 @@
+import { useState, type FormEvent } from "react";
 import { Container } from "../ui/Container";
 import { Reveal } from "../ui/Reveal";
 import { SceneLabel } from "../ui/SceneLabel";
+
+type Status = "idle" | "sending" | "sent" | "error";
 
 const SOCIALS = [
   {
@@ -36,6 +39,50 @@ const FICHA = [
 ];
 
 export default function Contact() {
+  const [status, setStatus] = useState<Status>("idle");
+
+  async function handleSubmit(e: FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    const form = e.currentTarget;
+    const data = new FormData(form);
+
+    // Honeypot: si tiene contenido, es spam → no enviamos
+    if ((data.get("_honey") as string)?.trim()) return;
+
+    const email = (data.get("email") as string) ?? "";
+    const message = (data.get("message") as string) ?? "";
+
+    setStatus("sending");
+
+    try {
+      const res = await fetch(
+        "https://formsubmit.co/ajax/francisbover3@gmail.com",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+          body: JSON.stringify({
+            email,
+            message,
+            _subject: "Desde el portafolio",
+            _captcha: "false",
+          }),
+        }
+      );
+      const json = await res.json();
+      if (json?.success === "true" || json?.success === true) {
+        setStatus("sent");
+        form.reset();
+      } else {
+        setStatus("error");
+      }
+    } catch {
+      setStatus("error");
+    }
+  }
+
   return (
     <section
       id="contact"
@@ -76,24 +123,15 @@ export default function Contact() {
             {/* ===== Formulario ===== */}
             <Reveal delay={120} className="md:col-span-7">
               <form
-                action="https://formsubmit.co/francisbover3@gmail.com"
-                method="POST"
+                onSubmit={handleSubmit}
                 className="
                   rounded-[18px] p-5 md:p-7
                   bg-[#0F2638] border border-[var(--color-yellow)]/15
                   shadow-[10px_10px_0_rgba(0,0,0,.35)]
                 "
               >
-                {/* Asunto por defecto */}
-                <input type="hidden" name="_subject" value="Desde el portafolio" />
-                {/* Desactiva captcha (opcional) */}
-                <input type="hidden" name="_captcha" value="false" />
-                {/* Template con tabla (más prolijo) */}
-                <input type="hidden" name="_template" value="table" />
                 {/* Honeypot anti-spam (no tocar) */}
                 <input type="text" name="_honey" className="hidden" />
-                {/* Redirección después de enviar (opcional) */}
-                <input type="hidden" name="_next" value="https://franbover.dev/#contact" />
 
                 <p
                   className="mb-4 text-[20px] md:text-[24px] text-[var(--color-white)]"
@@ -145,11 +183,32 @@ export default function Contact() {
                   </span>
                   <button
                     type="submit"
-                    className="cta inline-flex items-center justify-center gap-[var(--btn-gap)] h-[var(--btn-h)] px-[var(--btn-pad-x)] rounded-[var(--btn-radius)] border-2 bg-[var(--color-yellow)] text-[var(--color-blue)] border-[var(--color-yellow)] transition-colors hover:bg-transparent hover:text-[var(--color-yellow)]"
+                    disabled={status === "sending"}
+                    className="cta inline-flex items-center justify-center gap-[var(--btn-gap)] h-[var(--btn-h)] px-[var(--btn-pad-x)] rounded-[var(--btn-radius)] border-2 bg-[var(--color-yellow)] text-[var(--color-blue)] border-[var(--color-yellow)] transition-colors hover:bg-transparent hover:text-[var(--color-yellow)] disabled:opacity-60 disabled:pointer-events-none"
                   >
-                    Enviar
+                    {status === "sending" ? "Enviando…" : "Enviar"}
                   </button>
                 </div>
+
+                {/* Mensaje de estado */}
+                {status === "sent" && (
+                  <p
+                    className="mt-4 text-[14px] md:text-[15px] text-[var(--color-yellow)]"
+                    style={{ fontFamily: "var(--font-copy)" }}
+                    role="status"
+                  >
+                    ¡Mensaje enviado! Te respondo a la brevedad.
+                  </p>
+                )}
+                {status === "error" && (
+                  <p
+                    className="mt-4 text-[14px] md:text-[15px] text-[#ff8a8a]"
+                    style={{ fontFamily: "var(--font-copy)" }}
+                    role="alert"
+                  >
+                    Hubo un problema, probá de nuevo o escribime por WhatsApp.
+                  </p>
+                )}
               </form>
             </Reveal>
 
