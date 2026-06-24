@@ -93,7 +93,7 @@ export default function Contact() {
                 {/* Honeypot anti-spam (no tocar) */}
                 <input type="text" name="_honey" className="hidden" />
                 {/* Redirección después de enviar (opcional) */}
-                <input type="hidden" name="_next" value="/#contact?sent=1" />
+                <input type="hidden" name="_next" value="https://franbover.dev/#contact" />
 
                 <p
                   className="mb-4 text-[20px] md:text-[24px] text-[var(--color-white)]"

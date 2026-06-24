@@ -31,12 +31,12 @@ export default function Vinto() {
   return (
     <section
       id="vinto"
-      className="bg-[var(--color-white)] text-[var(--color-blue)] py-16 md:py-24"
+      className="overflow-x-hidden bg-[var(--color-white)] text-[var(--color-blue)] py-16 md:py-24"
     >
       <Container>
         <div className="grid items-center gap-10 lg:gap-14 md:grid-cols-12">
           {/* ===== Texto (portfolio) ===== */}
-          <div className="md:col-span-5 text-left">
+          <div className="md:col-span-5 min-w-0 w-full text-left">
             {/* Badge "En producción" */}
             <span
               className="
@@ -110,8 +110,8 @@ export default function Vinto() {
           </div>
 
           {/* ===== Mockup: ventana de navegador con la landing de Vinto ===== */}
-          <div className="md:col-span-7">
-            <div className="rounded-[16px] bg-white shadow-[8px_8px_0_#091A27] overflow-hidden border border-[var(--color-blue)]/10">
+          <div className="md:col-span-7 min-w-0 w-full">
+            <div className="w-full max-w-full rounded-[16px] bg-white shadow-[8px_8px_0_#091A27] overflow-hidden border border-[var(--color-blue)]/10">
               {/* Barra del navegador */}
               <div
                 className="flex items-center gap-3 px-4 py-2.5"
@@ -140,16 +140,16 @@ export default function Vinto() {
 
               {/* Contenido de la landing */}
               <div
-                className="px-6 py-8 md:px-9 md:py-11"
+                className="px-4 py-6 sm:px-6 sm:py-8 md:px-9 md:py-11"
                 style={{ background: V.bg, color: V.ink }}
               >
                 {/* Eyebrow */}
                 <div
-                  className="text-[11px] font-medium uppercase"
+                  className="text-[10px] sm:text-[11px] font-medium uppercase break-words"
                   style={{
                     color: V.wine,
                     fontFamily: SERIF,
-                    letterSpacing: "0.22em",
+                    letterSpacing: "0.18em",
                   }}
                 >
                   Vinto · Comercio online
@@ -163,7 +163,7 @@ export default function Vinto() {
 
                 {/* Título */}
                 <h3
-                  className="mt-5 text-[28px] md:text-[34px] leading-[1.1]"
+                  className="mt-5 text-[22px] sm:text-[28px] md:text-[34px] leading-[1.1] break-words"
                   style={{ fontFamily: SERIF, fontWeight: 400, color: V.ink }}
                 >
                   Tu negocio, vendiendo online.
@@ -171,7 +171,7 @@ export default function Vinto() {
 
                 {/* Bajada */}
                 <p
-                  className="mt-4 max-w-[42ch] text-[15px] leading-relaxed"
+                  className="mt-4 max-w-full sm:max-w-[42ch] text-[14px] sm:text-[15px] leading-relaxed"
                   style={{ fontFamily: SERIF, color: V.gray }}
                 >
                   Armá tu tienda en minutos y recibí pedidos directo por
@@ -179,9 +179,9 @@ export default function Vinto() {
                 </p>
 
                 {/* CTA + link */}
-                <div className="mt-7 flex flex-wrap items-center gap-5">
+                <div className="mt-7 flex flex-wrap items-center gap-4 sm:gap-5">
                   <span
-                    className="inline-block px-6 py-3 text-[12px] uppercase select-none"
+                    className="inline-block px-5 py-3 sm:px-6 text-[12px] uppercase select-none"
                     style={{
                       background: V.wine,
                       color: V.bg,
@@ -229,7 +229,7 @@ export default function Vinto() {
 
                   {/* Fila de producto */}
                   <div
-                    className="mt-4 flex items-center gap-4 rounded-[10px] p-3"
+                    className="mt-4 flex items-center gap-3 sm:gap-4 rounded-[10px] p-3"
                     style={{
                       background: V.bg,
                       border: `1px solid ${V.border}`,
