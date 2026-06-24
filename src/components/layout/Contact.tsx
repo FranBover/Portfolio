@@ -59,6 +59,7 @@ export default function Contact() {
         "https://formsubmit.co/ajax/francisbover3@gmail.com",
         {
           method: "POST",
+          referrerPolicy: "origin",
           headers: {
             "Content-Type": "application/json",
             Accept: "application/json",
