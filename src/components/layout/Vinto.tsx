@@ -12,7 +12,7 @@ const BULLETS = [
 const TECH = ["React", "C#", ".NET", "SQL", "Azure"];
 
 const LIVE_URL =
-  "https://vinto-frontend-dev-ffbbb4e2fzcfd5h9.centralus-01.azurewebsites.net/";
+  "https://vintoapp.com";
 const REPO_URL = "https://github.com/FranBover/vinto-backend-v2";
 
 /* === Paleta real de Vinto (no la del portfolio) === */
