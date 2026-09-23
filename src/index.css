@@ -25,7 +25,7 @@ body { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; 
 
 /* Utilidad para el patrón */
 .bg-kubrick {
-  background-image: url("/public/kubrik.png");
+  background-image: url("/textures/kubrick.webp");
 }
 
 
@@ -109,22 +109,12 @@ body {
   font-family: var(--font-mono);
   font-weight: 700;
   @apply text-[14px] md:text-[16px] lg:text-[18px];
-
-  .nav-link {
-  font-family: var(--font-mono);
-  font-weight: 700;
-  /* tamaños tipo .cta */
-  @apply text-[14px] md:text-[16px] lg:text-[18px];
-  /* leve tracking como en Figma */
-  letter-spacing: 0.02em;
-}
-
 }
 
 /* =========================
    UTILIDADES
    ========================= */
-.container-max { @apply mx-auto w-full max-w-[--container-max] px-4 sm:px-6 lg:px-8; }
+.container-max { @apply mx-auto w-full max-w-(--container-max) px-4 sm:px-6 lg:px-8; }
 
 .text-brand { color: var(--color-blue); }
 .bg-brand   { background: var(--color-blue); }

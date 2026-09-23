@@ -105,8 +105,8 @@ export default function About() {
                 className="pointer-events-none absolute inset-0 rounded-[8px] opacity-25 mix-blend-multiply"
                 style={{
                   backgroundImage:
-                    "url('/textures/noise.png'), radial-gradient(rgba(0,0,0,0.25) 0.6px, transparent 0.6px)",
-                  backgroundSize: "auto, 3px 3px",
+                    "radial-gradient(rgba(0,0,0,0.25) 0.6px, transparent 0.6px)",
+                  backgroundSize: "3px 3px",
                 }}
               />
               <p className="p text-center relative">

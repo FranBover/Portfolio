@@ -1,27 +1,18 @@
-import './App.css'
-import Hero from './components/layout/Hero'
-import Navbar from './components/layout/Navbar'
-import About from './components/layout/About'
-import Tools from './components/layout/Tools'
-import Vinto from './components/layout/Vinto'
-import Projects from './components/layout/Projects'
-import Contact from './components/layout/Contact'
-import Footer from './components/layout/Footer'
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router'
 import { GrainOverlay } from './components/ui/GrainOverlay'
+import Home from './pages/Home'
+import ProjectPage from './pages/ProjectPage'
 
 function App() {
   return (
-    <main>
+    <BrowserRouter>
       <GrainOverlay />
-      <Navbar />
-      <Hero />
-      <About />
-      <Tools />
-      <Vinto />
-      <Projects />
-      <Contact />
-      <Footer/>
-    </main>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/proyectos/:slug" element={<ProjectPage />} />
+        <Route path="*" element={<Navigate to="/" replace />} />
+      </Routes>
+    </BrowserRouter>
   )
 }
 

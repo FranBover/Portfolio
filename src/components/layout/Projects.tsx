@@ -54,8 +54,8 @@ export default function Projects() {
           className="pointer-events-none absolute inset-0 opacity-25 mix-blend-multiply"
           style={{
             backgroundImage:
-              "url('/textures/noise.png'), radial-gradient(rgba(0,0,0,0.25) 0.6px, transparent 0.6px)",
-            backgroundSize: "auto, 3px 3px",
+              "radial-gradient(rgba(0,0,0,0.25) 0.6px, transparent 0.6px)",
+            backgroundSize: "3px 3px",
           }}
         />
         <Container>

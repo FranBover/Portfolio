@@ -5,8 +5,6 @@ type ButtonProps =
   (React.AnchorHTMLAttributes<HTMLAnchorElement> & { href: string });
 
 export function Button({ className, href, ...props }: ButtonProps) {
-  const Comp: any = href ? "a" : "button";
-
   const base =
     // tipografía CTA + layout exacto de Figma
     "cta inline-flex items-center justify-center select-none " +
@@ -25,5 +23,21 @@ export function Button({ className, href, ...props }: ButtonProps) {
   const hov =
     "hover:bg-[var(--color-yellow)] hover:text-[var(--color-blue)] hover:border-[var(--color-yellow)]";
 
-  return <Comp className={cn(base, def, hov, className)} href={href} {...props} />;
+  const classes = cn(base, def, hov, className);
+
+  if (href) {
+    return (
+      <a
+        className={classes}
+        href={href}
+        {...(props as React.AnchorHTMLAttributes<HTMLAnchorElement>)}
+      />
+    );
+  }
+  return (
+    <button
+      className={classes}
+      {...(props as React.ButtonHTMLAttributes<HTMLButtonElement>)}
+    />
+  );
 }

@@ -13,14 +13,13 @@ function ToolCard({
       p-5 md:p-6 rounded-[6px]
       shadow-[10px_10px_0_4px_#091A27]
     ">
-      {/* noise overlay (si no hay /textures/noise.png, queda el fallback de puntitos) */}
       <div
         aria-hidden
         className="pointer-events-none absolute inset-0 rounded-[6px] opacity-25 mix-blend-multiply"
         style={{
           backgroundImage:
-            "url('/textures/noise.png'), radial-gradient(rgba(0,0,0,0.25) 0.6px, transparent 0.6px)",
-          backgroundSize: "auto, 3px 3px",
+            "radial-gradient(rgba(0,0,0,0.25) 0.6px, transparent 0.6px)",
+          backgroundSize: "3px 3px",
         }}
       />
       <h3 className="h3 text-center relative">{title}</h3>
@@ -41,8 +40,8 @@ export default function Tools() {
           className="pointer-events-none absolute inset-0 opacity-25 mix-blend-multiply"
           style={{
             backgroundImage:
-              "url('/textures/noise.png'), radial-gradient(rgba(0,0,0,0.25) 0.6px, transparent 0.6px)",
-            backgroundSize: "auto, 3px 3px",
+              "radial-gradient(rgba(0,0,0,0.25) 0.6px, transparent 0.6px)",
+            backgroundSize: "3px 3px",
           }}
         />
         <Container>
