@@ -57,7 +57,7 @@ export function ContactSection() {
         >
           Hablemos.
         </h2>
-        <p className="mt-2 max-w-[520px] text-[16px] leading-[1.55] text-[var(--color-white)] xl:text-[17px]" style={{ fontFamily: "var(--font-copy)" }}>
+        <p className="mt-[14px] max-w-[520px] text-[16px] leading-[1.55] text-[var(--color-white)] xl:text-[17px]" style={{ fontFamily: "var(--font-copy)" }}>
           Contame tu idea, tu proyecto o el puesto que buscás cubrir. Te respondo a la brevedad.
         </p>
       </Reveal>
@@ -65,7 +65,7 @@ export function ContactSection() {
       <Reveal delay={160}>
         <form
           onSubmit={handleSubmit}
-          className="mt-3 flex flex-col gap-3 rounded-[18px] border border-[rgba(223,175,43,.15)] bg-[#0F2638] p-[18px] shadow-[10px_10px_0_rgba(0,0,0,.35)] xl:p-[22px]"
+          className="mt-[28px] flex max-w-[560px] flex-col gap-3 rounded-[18px] border border-[rgba(223,175,43,.15)] bg-[#0F2638] p-[22px] shadow-[10px_10px_0_rgba(0,0,0,.35)]"
         >
           <input type="text" name="_honey" className="hidden" tabIndex={-1} autoComplete="off" />
 
@@ -119,7 +119,7 @@ export function ContactSection() {
         <footer className="mt-1 flex items-center justify-between gap-3 border-t border-[rgba(230,213,184,.14)] pt-6">
           <div className="flex min-w-0 items-center gap-2.5">
             <img src="/Logo.png" alt="" className="h-[30px] w-[30px] shrink-0" />
-            <span className="cta overflow-hidden text-ellipsis whitespace-nowrap text-[11px] text-[rgba(230,213,184,.62)]">
+            <span className="cta text-[11px] text-[rgba(230,213,184,.62)]">
               Hecho a mano en Córdoba · © {new Date().getFullYear()}
             </span>
           </div>

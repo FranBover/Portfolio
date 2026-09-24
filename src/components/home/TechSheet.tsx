@@ -44,7 +44,7 @@ export function TechSheet({ variant = "aside" }: { variant?: "aside" | "card" })
       <SceneLabel className="text-[rgba(230,213,184,.62)]">Ficha técnica</SceneLabel>
       <dl>
         {FICHA.map((row) => (
-          <div key={row.k} className="flex items-baseline justify-between gap-3.5 border-b border-[rgba(230,213,184,.14)] py-2.5">
+          <div key={row.k} className="ficha-row flex items-baseline justify-between gap-3.5 border-b border-[rgba(230,213,184,.14)] py-2.5">
             <dt className="cta text-[10.5px] tracking-[.12em] text-[rgba(230,213,184,.62)]" style={{ textTransform: "uppercase" }}>
               {row.k}
             </dt>

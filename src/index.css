@@ -9,6 +9,11 @@ html { scroll-behavior: smooth; }
    a la altura del viewport y con eso rompe el position:sticky del Header. */
 html, body, #root { min-height: 100%; }
 html, body { margin: 0; padding: 0; }
+/* Red de seguridad: algunos títulos en Montserrat 900 pintan un par de px de
+   tinta más allá de su caja de layout (overshoot del glyph, no un elemento
+   más ancho que el viewport). No crea un contenedor de scroll nuevo ni toca
+   el vertical, así que no rompe el sticky del Header ni el IntersectionObserver de Reveal. */
+html { overflow-x: hidden; }
 
 /* (opcional) color de fondo base, si querés que
    donde no haya sección se vea azul */
@@ -19,18 +24,31 @@ body { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; 
 
 
 
-/* --- Fondo animado estilo "scroll up" --- */
-@keyframes bg-scroll-up {
-  from { background-position: 0 0; }
-  to   { background-position: 0 -780px; } /* altura aprox del tile */
-}
-
-/* Utilidad para el patrón */
-.bg-kubrick {
+/* --- Patrón Kubrick animado: capa absolute inset-0 dentro de una "ventana" overflow-hidden --- */
+.kubrick-layer {
   background-image: url("/textures/kubrick.webp");
+  background-size: 260px auto;
+  background-repeat: repeat;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .kubrick-layer { animation: kubrick-scroll 40s linear infinite; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .kubrick-layer { background-position: 0 0; }
+}
+/* 271px = alto exacto del tile a 260px de ancho (kubrick.webp es 520x542) */
+@keyframes kubrick-scroll {
+  from { background-position: 0 -271px; }
+  to   { background-position: 0 0; }
 }
 
-
+/* --- Oculta la barra de scroll visible de las columnas laterales, sin perder el scroll --- */
+.scroll-clean {
+  scrollbar-width: none;
+}
+.scroll-clean::-webkit-scrollbar {
+  display: none;
+}
 
 
 /* =========================
@@ -87,30 +105,37 @@ body {
 /* =========================
    TIPOGRAFÍAS RESPONSIVE (según tu tabla)
    ========================= */
-.h1 {
-  font-family: var(--font-display-1);
-  font-weight: 900;
-  @apply text-[48px] md:text-[80px] lg:text-[96px] leading-tight;
-}
-.h2 {
-  font-family: var(--font-display-2);
-  font-weight: 400;
-  @apply text-[36px] md:text-[48px] lg:text-[56px] leading-snug;
-}
-.h3 {
-  font-family: var(--font-display-2);
-  font-weight: 400;
-  @apply text-[24px] md:text-[32px] lg:text-[40px] leading-snug;
-}
-.p {
-  font-family: var(--font-copy);
-  font-weight: 400;
-  @apply text-[16px] md:text-[20px] lg:text-[24px];
-}
-.cta {
-  font-family: var(--font-mono);
-  font-weight: 700;
-  @apply text-[14px] md:text-[16px] lg:text-[18px];
+/* En @layer components: las utilities de Tailwind (incluidas las arbitrarias
+   text-[Npx]) siguen pudiendo pisar estos tamaños por defecto. Sueltas (sin
+   capa), estas reglas le ganarían siempre a cualquier utility sin importar
+   el orden del archivo — así fue como "cta text-[10.5px]" terminaba
+   mostrando el 14px de .cta en vez del tamaño chico. */
+@layer components {
+  .h1 {
+    font-family: var(--font-display-1);
+    font-weight: 900;
+    @apply text-[48px] md:text-[80px] lg:text-[96px] leading-tight;
+  }
+  .h2 {
+    font-family: var(--font-display-2);
+    font-weight: 400;
+    @apply text-[36px] md:text-[48px] lg:text-[56px] leading-snug;
+  }
+  .h3 {
+    font-family: var(--font-display-2);
+    font-weight: 400;
+    @apply text-[24px] md:text-[32px] lg:text-[40px] leading-snug;
+  }
+  .p {
+    font-family: var(--font-copy);
+    font-weight: 400;
+    @apply text-[16px] md:text-[20px] lg:text-[24px];
+  }
+  .cta {
+    font-family: var(--font-mono);
+    font-weight: 700;
+    @apply text-[14px] md:text-[16px] lg:text-[18px];
+  }
 }
 
 /* =========================
@@ -132,19 +157,21 @@ body {
 .rounded-md { border-radius: var(--radius-md); }
 .rounded-lg { border-radius: var(--radius-lg); }
 
-.nav-link {
-  font-family: var(--font-mono);
-  font-weight: 700;
-  /* tamaños tipo .cta */
-  @apply text-[14px] md:text-[16px] lg:text-[18px];
-  /* leve tracking como en Figma */
-  letter-spacing: 0.02em;
-}
+@layer components {
+  .nav-link {
+    font-family: var(--font-mono);
+    font-weight: 700;
+    /* tamaños tipo .cta */
+    @apply text-[14px] md:text-[16px] lg:text-[18px];
+    /* leve tracking como en Figma */
+    letter-spacing: 0.02em;
+  }
 
-.section-title {
-  font-family: var(--font-display-1);
-  font-weight: 900;
-  @apply text-[32px] md:text-[48px] lg:text-[56px] leading-[0.95];
+  .section-title {
+    font-family: var(--font-display-1);
+    font-weight: 900;
+    @apply text-[32px] md:text-[48px] lg:text-[56px] leading-[0.95];
+  }
 }
 
 /* =========================
@@ -338,4 +365,15 @@ body {
 @media (prefers-reduced-motion: reduce) {
   .social-pop { transition: none; }
   .group:hover .social-pop { transform: none; }
+}
+
+/* ---- Modo compacto de las columnas laterales (pantallas bajas) ----
+   Solo importa en xl+ (donde estos componentes son visibles: en mobile
+   están en `hidden xl:block`), para que las dos columnas entren sin
+   scroll en laptops de poca altura (1366x768, 1512x760). */
+@media (max-height: 860px) {
+  .aside-name { font-size: 40px; }
+  .film-aside { height: 140px; width: 187px; }
+  .track-row { padding-top: 7px; padding-bottom: 7px; }
+  .ficha-row { padding-top: 6px; padding-bottom: 6px; }
 }

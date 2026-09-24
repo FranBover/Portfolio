@@ -14,11 +14,11 @@ export function HomeRightAside() {
         <TechSheet variant="aside" />
       </div>
 
-      <div className="flex items-end justify-between">
-        <a href={whatsapp.href} target="_blank" rel="noreferrer" className="cta text-[13px] text-[var(--color-yellow)]">
+      <div className="mt-6 flex items-end justify-between gap-3 border-t border-[rgba(230,213,184,.14)] pt-4">
+        <a href={whatsapp.href} target="_blank" rel="noreferrer" className="cta whitespace-nowrap text-[13px] text-[var(--color-yellow)]">
           Escribime por WhatsApp ↗
         </a>
-        <span className="cta text-[11px] text-[rgba(230,213,184,.62)]">© {new Date().getFullYear()}</span>
+        <span className="cta whitespace-nowrap text-[11px] text-[rgba(230,213,184,.62)]">© {new Date().getFullYear()}</span>
       </div>
     </div>
   );

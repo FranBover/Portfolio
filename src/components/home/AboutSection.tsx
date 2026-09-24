@@ -14,7 +14,7 @@ const MI = [
 ];
 
 const letterClass =
-  "cut-letter select-none [user-drag:none] h-auto w-11 sm:w-14 xl:w-[60px] " +
+  "cut-letter select-none [user-drag:none] w-auto h-[46px] xl:h-[64px] " +
   "rotate-0 md:rotate-[var(--rot)] translate-y-0 md:translate-y-[var(--dy)] " +
   "will-change-transform motion-reduce:transition-none " +
   "hover:-translate-y-2 hover:rotate-[10deg] hover:z-10 relative " +
@@ -38,45 +38,49 @@ export function AboutSection() {
       </Reveal>
 
       <Reveal delay={160}>
-        <div className="bg-kubrick mt-4 flex flex-col items-center rounded-[14px] bg-repeat px-4 pb-5 pt-[18px] shadow-[10px_10px_0_4px_#091A27] xl:mt-9 xl:px-[30px] xl:pb-[30px] xl:pt-[26px]">
-          <div className="flex flex-col items-center">
-            <div className="flex items-end justify-center">
-              {SOBRE.map((L, i) => (
-                <img
-                  key={L.ch}
-                  src={`/letters/${L.ch}.png`}
-                  alt={L.ch}
-                  style={{ "--rot": `${L.r}deg`, "--dy": `${L.dy}px`, transitionDelay: `${i * 40}ms` } as React.CSSProperties}
-                  className={letterClass}
-                />
-              ))}
-            </div>
-            <div className="-mt-1 flex items-start justify-center">
-              {MI.map((L, i) => (
-                <img
-                  key={L.ch}
-                  src={`/letters/${L.ch}.png`}
-                  alt={L.ch}
-                  style={{ "--rot": `${L.r}deg`, "--dy": `${L.dy}px`, transitionDelay: `${(SOBRE.length + i) * 40}ms` } as React.CSSProperties}
-                  className={letterClass}
-                />
-              ))}
-            </div>
-          </div>
+        <div className="relative mt-4 overflow-hidden rounded-[14px] shadow-[10px_10px_0_4px_#091A27] xl:mt-9">
+          <div className="kubrick-layer absolute inset-0" aria-hidden />
 
-          <div className="relative mt-1 rounded-[8px] bg-[var(--color-yellow)] px-[18px] py-[18px] text-[var(--color-blue)] shadow-[10px_10px_0_4px_#091A27] xl:px-[26px] xl:py-[22px]">
-            <div
-              aria-hidden
-              className="pointer-events-none absolute inset-0 rounded-[8px] opacity-25 mix-blend-multiply"
-              style={{ backgroundImage: "radial-gradient(rgba(0,0,0,0.25) 0.6px, transparent 0.6px)", backgroundSize: "3px 3px" }}
-            />
-            <p className="relative text-[15px] leading-[1.6] xl:text-[16px]" style={{ fontFamily: "var(--font-copy)" }}>
-              Desarrollador full-stack. Agarro un problema de negocio real, lo relevo, lo diseño y lo llevo a
-              producción — solo, de punta a punta. Trabajo con C#/.NET, React y TypeScript, y complemento con
-              agentes de IA (Claude Code, Cursor) para moverme rápido sin bajar la calidad. Antes fui técnico
-              electricista; ahora resuelvo con código lo mismo que antes resolvía con las manos: encontrar dónde
-              está la falla y arreglarla.
-            </p>
+          <div className="relative flex flex-col items-center px-4 pb-5 pt-[18px] xl:px-[30px] xl:pb-[30px] xl:pt-[26px]">
+            <div className="flex flex-col items-center">
+              <div className="flex items-end justify-center">
+                {SOBRE.map((L, i) => (
+                  <img
+                    key={L.ch}
+                    src={`/letters/${L.ch}.png`}
+                    alt={L.ch}
+                    style={{ "--rot": `${L.r}deg`, "--dy": `${L.dy}px`, transitionDelay: `${i * 40}ms` } as React.CSSProperties}
+                    className={letterClass}
+                  />
+                ))}
+              </div>
+              <div className="-mt-1 flex items-start justify-center">
+                {MI.map((L, i) => (
+                  <img
+                    key={L.ch}
+                    src={`/letters/${L.ch}.png`}
+                    alt={L.ch}
+                    style={{ "--rot": `${L.r}deg`, "--dy": `${L.dy}px`, transitionDelay: `${(SOBRE.length + i) * 40}ms` } as React.CSSProperties}
+                    className={letterClass}
+                  />
+                ))}
+              </div>
+            </div>
+
+            <div className="relative mt-1 rounded-[8px] bg-[var(--color-yellow)] px-[18px] py-[18px] text-[var(--color-blue)] shadow-[10px_10px_0_4px_#091A27] xl:px-[26px] xl:py-[22px]">
+              <div
+                aria-hidden
+                className="pointer-events-none absolute inset-0 rounded-[8px] opacity-25 mix-blend-multiply"
+                style={{ backgroundImage: "radial-gradient(rgba(0,0,0,0.25) 0.6px, transparent 0.6px)", backgroundSize: "3px 3px" }}
+              />
+              <p className="relative text-[15px] leading-[1.6] xl:text-[16px]" style={{ fontFamily: "var(--font-copy)" }}>
+                Desarrollador full-stack. Agarro un problema de negocio real, lo relevo, lo diseño y lo llevo a
+                producción — solo, de punta a punta. Trabajo con C#/.NET, React y TypeScript, y complemento con
+                agentes de IA (Claude Code, Cursor) para moverme rápido sin bajar la calidad. Antes fui técnico
+                electricista; ahora resuelvo con código lo mismo que antes resolvía con las manos: encontrar dónde
+                está la falla y arreglarla.
+              </p>
+            </div>
           </div>
         </div>
       </Reveal>

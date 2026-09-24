@@ -6,7 +6,7 @@ import { SceneLabel } from "../ui/SceneLabel";
 const sideBProjects = projects.filter((p): p is SideBProject => p.side === "B");
 
 const rowBase =
-  "grid grid-cols-[34px_1fr_auto] items-baseline gap-2.5 border-t border-[rgba(230,213,184,.14)] py-2.5 text-[var(--color-white)]";
+  "track-row grid grid-cols-[34px_1fr_auto] items-baseline gap-2.5 border-t border-[rgba(230,213,184,.14)] py-2.5 text-[var(--color-white)]";
 
 export function Tracklist({ sides = ["A", "B"] }: { sides?: Array<"A" | "B"> }) {
   return (
@@ -25,7 +25,7 @@ export function Tracklist({ sides = ["A", "B"] }: { sides?: Array<"A" | "B"> }) 
                 <span className="text-[22px] leading-[1.1]" style={{ fontFamily: "var(--font-display-2)" }}>
                   {project.title}
                 </span>
-                <span className="cta text-[10px] tracking-[.1em] text-[rgba(230,213,184,.62)]" style={{ textTransform: "uppercase" }}>
+                <span className="cta whitespace-nowrap text-[10px] tracking-[.1em] text-[rgba(230,213,184,.62)]" style={{ textTransform: "uppercase" }}>
                   {project.kind}
                 </span>
               </Link>
@@ -50,7 +50,7 @@ export function Tracklist({ sides = ["A", "B"] }: { sides?: Array<"A" | "B"> }) 
                 <span className="text-[17px] leading-[1.1]" style={{ fontFamily: "var(--font-display-2)" }}>
                   {project.title}
                 </span>
-                <span className="cta text-[10px] tracking-[.1em] text-[rgba(230,213,184,.62)]" style={{ textTransform: "uppercase" }}>
+                <span className="cta whitespace-nowrap text-[10px] tracking-[.1em] text-[rgba(230,213,184,.62)]" style={{ textTransform: "uppercase" }}>
                   {project.kind}
                 </span>
               </a>

@@ -3,10 +3,10 @@ import { Tracklist } from "./Tracklist";
 
 export function HomeLeftAside() {
   return (
-    <div className="flex h-full flex-col justify-between px-9 pb-9 pt-10">
+    <div className="flex h-full flex-col justify-between gap-8 px-9 pb-9 pt-10">
       <div className="flex flex-col gap-[22px]">
         <h1
-          className="text-[54px] leading-[.95] text-[var(--color-yellow)]"
+          className="aside-name text-[54px] leading-[.95] text-[var(--color-yellow)]"
           style={{ fontFamily: "var(--font-display-1)", fontWeight: 900, letterSpacing: "-.01em" }}
         >
           Francisco

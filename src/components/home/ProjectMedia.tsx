@@ -41,7 +41,7 @@ export function ProjectMedia({ project }: { project: FeaturedProject }) {
             loading="lazy"
             width={112}
             height={200}
-            className="h-[200px] w-[112px] rounded-[14px] border-[3px] border-[#1a1a1a] object-cover object-top shadow-[0_16px_30px_rgba(26,26,26,.22)]"
+            className="aspect-[112/200] h-auto w-[38%] max-w-[112px] rounded-[14px] border-[3px] border-[#1a1a1a] object-cover object-top shadow-[0_16px_30px_rgba(26,26,26,.22)]"
           />
           <img
             src={producto}
@@ -49,7 +49,7 @@ export function ProjectMedia({ project }: { project: FeaturedProject }) {
             loading="lazy"
             width={112}
             height={200}
-            className="h-[200px] w-[112px] rounded-[14px] border-[3px] border-[#1a1a1a] object-cover object-top shadow-[0_16px_30px_rgba(26,26,26,.22)]"
+            className="aspect-[112/200] h-auto w-[38%] max-w-[112px] rounded-[14px] border-[3px] border-[#1a1a1a] object-cover object-top shadow-[0_16px_30px_rgba(26,26,26,.22)]"
           />
         </div>
       </>
@@ -81,14 +81,14 @@ export function ProjectMedia({ project }: { project: FeaturedProject }) {
         )}
       </div>
       <div className="relative h-[236px] w-full overflow-hidden rounded-[10px] bg-[#F2F1EC] xl:hidden">
-        <img src={render3d} alt="Vista 3D de una cocina en L" loading="lazy" className="absolute -left-[18px] top-[18px] w-[250px]" />
+        <img src={render3d} alt="Vista 3D de una cocina en L" loading="lazy" className="absolute -left-[18px] top-[18px] w-[84%] max-w-[250px]" />
         <img
           src={cuerpos}
           alt="Pantalla de cuerpos con el total en vivo"
           loading="lazy"
           width={104}
           height={200}
-          className="absolute right-[14px] top-4 h-[200px] w-[104px] rounded-[14px] border-[3px] border-[#1a1a1a] object-cover object-top shadow-[0_16px_30px_rgba(26,26,26,.22)]"
+          className="absolute right-[14px] top-4 aspect-[104/200] h-auto w-[35%] max-w-[104px] rounded-[14px] border-[3px] border-[#1a1a1a] object-cover object-top shadow-[0_16px_30px_rgba(26,26,26,.22)]"
         />
         {badge && (
           <span

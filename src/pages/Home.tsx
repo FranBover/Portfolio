@@ -34,13 +34,13 @@ export default function Home() {
           <div className="px-5 xl:px-14">
             <MobileHero />
             <AboutSection />
-            <div className="mt-[60px]">
+            <div className="mt-[72px] xl:mt-[96px]">
               <ProjectsSection />
             </div>
-            <div className="mt-[60px]">
+            <div className="mt-[72px] xl:mt-[96px]">
               <ToolsSection />
             </div>
-            <div className="mt-[60px] xl:mt-[56px]">
+            <div className="mt-[72px] xl:mt-[96px]">
               <ContactSection />
             </div>
           </div>

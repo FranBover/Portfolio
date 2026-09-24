@@ -38,7 +38,7 @@ export function ProjectCard({ project }: { project: FeaturedProject }) {
 
       <div className="mt-8 flex items-center gap-3">
         <span
-          className="rounded-[10px] bg-[var(--color-orange)] px-[9px] py-[3px] text-[12px] leading-[1.1] text-[var(--color-blue)] shadow-[2px_2px_0_rgba(0,0,0,.35)]"
+          className="whitespace-nowrap rounded-[10px] bg-[var(--color-orange)] px-[9px] py-[3px] text-[12px] leading-[1.1] text-[var(--color-blue)] shadow-[2px_2px_0_rgba(0,0,0,.35)]"
           style={{ fontFamily: "var(--font-copy)" }}
         >
           {project.badge}

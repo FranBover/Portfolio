@@ -7,8 +7,8 @@ export function ToolsSection() {
     <section id="herramientas" className="scroll-mt-24">
       <Reveal className="flex flex-col gap-[18px] text-[var(--color-yellow)]">
         <SceneLabel>ESC. 03 · Herramientas</SceneLabel>
-        <div className="relative inline-flex self-start">
-          <span className="absolute left-1/2 top-[60%] block h-[81px] w-[115px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[var(--color-orange)] xl:h-[105px] xl:w-[149px]" />
+        <div className="relative inline-block self-start px-3 py-6 xl:px-4 xl:py-8">
+          <span className="absolute inset-0 rounded-[50%] bg-[var(--color-orange)]" aria-hidden />
           <h2
             className="relative text-[34px] leading-none text-[var(--color-white)] xl:text-[44px]"
             style={{ fontFamily: "var(--font-display-1)", fontWeight: 900 }}
