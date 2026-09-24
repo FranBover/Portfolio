@@ -90,7 +90,7 @@ export function ContactSection() {
             className={`${inputClass} resize-none`}
           />
 
-          <div className="mt-1 flex items-center justify-between gap-3">
+          <div className="mt-3 flex items-center justify-between gap-3">
             <span className="cta text-[11px] tracking-[.18em] text-[rgba(230,213,184,.5)]" style={{ textTransform: "uppercase" }}>
               Toma 1 · ¡Acción!
             </span>

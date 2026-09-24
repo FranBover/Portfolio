@@ -12,7 +12,12 @@ export function FilmStrip({ size = "aside" }: { size?: keyof typeof INNER }) {
   return (
     <div className={`film-strip ${OUTER[size]}`}>
       <div className={`relative overflow-hidden rounded-[10px] ${INNER[size]}`}>
-        <img src="/gif.gif" alt="Cohete despegando" className="h-full w-full object-cover" loading="lazy" />
+        <img
+          src="/gif.gif"
+          alt="Cohete despegando"
+          className="h-full w-full scale-[1.55] object-cover object-[30%_65%]"
+          loading="lazy"
+        />
         <div className="fx-grain-static pointer-events-none absolute inset-0" aria-hidden />
       </div>
     </div>

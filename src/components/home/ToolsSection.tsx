@@ -7,14 +7,19 @@ export function ToolsSection() {
     <section id="herramientas" className="scroll-mt-24">
       <Reveal className="flex flex-col gap-[18px] text-[var(--color-yellow)]">
         <SceneLabel>ESC. 03 · Herramientas</SceneLabel>
-        <div className="relative inline-block self-start px-3 py-6 xl:px-4 xl:py-8">
-          <span className="absolute inset-0 rounded-[50%] bg-[var(--color-orange)]" aria-hidden />
-          <h2
-            className="relative text-[34px] leading-none text-[var(--color-white)] xl:text-[44px]"
-            style={{ fontFamily: "var(--font-display-1)", fontWeight: 900 }}
-          >
-            Herramientas
-          </h2>
+        <div className="pl-[14px] xl:pl-0">
+          <div className="relative inline-flex self-start">
+            <span
+              className="absolute left-1/2 top-[60%] h-[81px] w-[115px] -translate-x-1/2 -translate-y-1/2 rounded-[50%] bg-[var(--color-orange)] xl:h-[105px] xl:w-[149px]"
+              aria-hidden
+            />
+            <h2
+              className="relative text-[34px] leading-none text-[var(--color-white)] xl:text-[44px]"
+              style={{ fontFamily: "var(--font-display-1)", fontWeight: 900 }}
+            >
+              Herramientas
+            </h2>
+          </div>
         </div>
         <p className="text-[15px] text-[rgba(230,213,184,.75)] xl:text-[16px]" style={{ fontFamily: "var(--font-copy)" }}>
           Lo que uso hoy en producción, en Vinto y en el presupuestador.

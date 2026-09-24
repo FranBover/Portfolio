@@ -108,7 +108,7 @@ export function DesktopCarousel({ slides, index, onIndexChange, canvasBg, eagerF
         </div>
       </div>
 
-      <div className="mt-3.5 flex gap-2.5 overflow-x-auto">
+      <div className="scroll-clean mt-3.5 flex gap-2.5 overflow-x-auto">
         {slides.map((s, i) => (
           <button
             key={i}
