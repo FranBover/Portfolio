@@ -2,15 +2,21 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import type { SlideGroup, SlideImage } from "../../data/projects/types";
 
 type FlatItem =
-  | { key: string; slideIndex: number; caption: string; kind: "image"; image: SlideImage }
+  | { key: string; slideIndex: number; caption: string; kind: "image"; image: SlideImage; fitToImage: boolean }
   | { key: string; slideIndex: number; caption: string; kind: "missing"; missingNote: string };
+
+/** Celulares en fila (2-3 capturas verticales): en mobile cada una ya es su propia tarjeta, así que esto solo importa para decidir su recorte. */
+function isPhoneGrid(images: SlideImage[]) {
+  return images.length > 1 && images.every((img) => img.width < img.height);
+}
 
 function flatten(slides: SlideGroup[]): FlatItem[] {
   const out: FlatItem[] = [];
   slides.forEach((slide, si) => {
     if (slide.images.length > 0) {
+      const fitToImage = !isPhoneGrid(slide.images);
       slide.images.forEach((image, ii) => {
-        out.push({ key: `${si}-${ii}`, slideIndex: si, caption: slide.caption, kind: "image", image });
+        out.push({ key: `${si}-${ii}`, slideIndex: si, caption: slide.caption, kind: "image", image, fitToImage });
       });
     } else {
       out.push({ key: `${si}-missing`, slideIndex: si, caption: slide.caption, kind: "missing", missingNote: slide.missingNote ?? "" });
@@ -79,22 +85,47 @@ export function MobileCarousel({ slides, onSlideIndexChange, canvasBg, eagerFirs
               itemRefs.current[i] = el;
             }}
             className="flex-none snap-center rounded-[18px] bg-white p-2.5 shadow-[8px_8px_0_#091A27]"
-            style={{ width: "80vw", maxWidth: "340px" }}
+            style={
+              item.kind === "image" && item.fitToImage
+                ? { width: "fit-content", maxWidth: "min(80vw, 340px)", alignSelf: "center" }
+                : { width: "80vw", maxWidth: "340px" }
+            }
           >
-            <div className="flex h-[420px] items-center justify-center rounded-[10px]" style={{ background: canvasBg }}>
-              {item.kind === "image" ? (
+            {item.kind === "image" ? (
+              item.fitToImage ? (
                 <img
                   src={item.image.src}
                   width={item.image.width}
                   height={item.image.height}
                   alt={item.image.alt}
                   loading={eagerFirst && i === 0 ? undefined : "lazy"}
-                  className="h-full w-full rounded-[16px] border-[3px] border-[#1a1a1a] object-contain object-top"
+                  className="block rounded-[10px] border-[3px] border-[#1a1a1a] object-contain object-top"
+                  style={{
+                    background: canvasBg,
+                    aspectRatio: `${item.image.width} / ${item.image.height}`,
+                    width: "auto",
+                    height: "auto",
+                    maxWidth: "min(calc(80vw - 20px), 320px)",
+                    maxHeight: "420px",
+                  }}
                 />
               ) : (
+                <div className="flex h-[420px] items-center justify-center rounded-[10px]" style={{ background: canvasBg }}>
+                  <img
+                    src={item.image.src}
+                    width={item.image.width}
+                    height={item.image.height}
+                    alt={item.image.alt}
+                    loading={eagerFirst && i === 0 ? undefined : "lazy"}
+                    className="h-full w-full rounded-[16px] border-[3px] border-[#1a1a1a] object-contain object-top"
+                  />
+                </div>
+              )
+            ) : (
+              <div className="flex h-[420px] items-center justify-center rounded-[10px]" style={{ background: canvasBg }}>
                 <p className="cta px-6 text-center text-[12px] text-[rgba(11,30,45,.6)]">{item.missingNote}</p>
-              )}
-            </div>
+              </div>
+            )}
           </div>
         ))}
       </div>

@@ -1,4 +1,4 @@
-import type { SlideGroup } from "../../data/projects/types";
+import type { SlideGroup, SlideImage } from "../../data/projects/types";
 
 type DesktopCarouselProps = {
   slides: SlideGroup[];
@@ -9,10 +9,28 @@ type DesktopCarouselProps = {
   ariaLabel: string;
 };
 
+const ROW_MAX_WIDTH = 700;
+const ROW_MAX_HEIGHT = 460;
+const ROW_GAP = 22;
+
+/** Celulares en fila (2-3 capturas verticales): mantiene la caja fija 220×318 con recorte, la referencia "esto se ve bien". */
+function isPhoneGrid(images: SlideImage[]) {
+  return images.length > 1 && images.every((img) => img.width < img.height);
+}
+
+/** Alto compartido para que N imágenes (1 o más, cualquier proporción) entren sin recorte en el marco. */
+function rowHeight(images: SlideImage[]) {
+  const sumAspect = images.reduce((sum, img) => sum + img.width / img.height, 0);
+  const widthFit = (ROW_MAX_WIDTH - ROW_GAP * (images.length - 1)) / sumAspect;
+  return Math.min(ROW_MAX_HEIGHT, widthFit);
+}
+
 /** Carrusel de escritorio: marco blanco con el/los imagen(es) del slide activo, flechas, miniaturas y teclado. */
 export function DesktopCarousel({ slides, index, onIndexChange, canvasBg, eagerFirst, ariaLabel }: DesktopCarouselProps) {
   const total = slides.length;
   const slide = slides[index];
+  const phoneGrid = isPhoneGrid(slide.images);
+  const fitToImages = slide.images.length > 0 && !phoneGrid;
 
   function go(delta: number) {
     onIndexChange((index + delta + total) % total);
@@ -29,22 +47,32 @@ export function DesktopCarousel({ slides, index, onIndexChange, canvasBg, eagerF
           if (e.key === "ArrowLeft") go(-1);
           if (e.key === "ArrowRight") go(1);
         }}
-        className="rounded-[20px] bg-white p-3 shadow-[8px_8px_0_#091A27] outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-yellow)]"
+        className={
+          "rounded-[20px] bg-white p-3 shadow-[8px_8px_0_#091A27] outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-yellow)]" +
+          (fitToImages ? " w-fit mx-auto" : "")
+        }
       >
         <div
-          className="flex h-[318px] items-center justify-center gap-[22px] rounded-[10px]"
-          style={{ background: canvasBg }}
+          className={"flex items-center justify-center gap-[22px] rounded-[10px] " + (fitToImages ? "" : "h-[318px]")}
+          style={{ background: canvasBg, height: fitToImages ? `${rowHeight(slide.images)}px` : undefined }}
         >
           {slide.images.length > 0 ? (
             slide.images.map((image, i) => (
-              <div key={image.src} className="h-full min-w-0 max-w-[220px] flex-1">
+              <div
+                key={image.src}
+                className={fitToImages ? "h-full flex-none" : "h-full min-w-0 max-w-[220px] flex-1"}
+                style={fitToImages ? { width: `${rowHeight(slide.images) * (image.width / image.height)}px` } : undefined}
+              >
                 <img
                   src={image.src}
                   width={image.width}
                   height={image.height}
                   alt={image.alt}
                   loading={eagerFirst && index === 0 && i === 0 ? undefined : "lazy"}
-                  className="h-full w-full rounded-[14px] border-[3px] border-[#1a1a1a] object-cover object-top shadow-[0_18px_40px_rgba(26,26,26,.22)]"
+                  className={
+                    "h-full w-full rounded-[14px] border-[3px] border-[#1a1a1a] object-top shadow-[0_18px_40px_rgba(26,26,26,.22)] " +
+                    (fitToImages ? "object-contain" : "object-cover")
+                  }
                 />
               </div>
             ))
