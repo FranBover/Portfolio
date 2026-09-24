@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router";
 import { Button } from "../ui/Button";
 import { cn } from "../../lib/cn";
+import { useScrollSpy } from "../../lib/useScrollSpy";
 
 const NAV_ITEMS = [
   { id: "inicio", label: "Inicio" },
@@ -11,31 +12,6 @@ const NAV_ITEMS = [
 ] as const;
 
 const NAV_IDS = NAV_ITEMS.map((item) => item.id);
-
-function useScrollSpy(ids: readonly string[], enabled: boolean) {
-  const [active, setActive] = useState<string>(ids[0]);
-
-  useEffect(() => {
-    if (!enabled) return;
-    const elements = ids
-      .map((id) => document.getElementById(id))
-      .filter((el): el is HTMLElement => el !== null);
-    if (elements.length === 0) return;
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) setActive(entry.target.id);
-        });
-      },
-      { rootMargin: "-100px 0px -70% 0px", threshold: 0 }
-    );
-    elements.forEach((el) => observer.observe(el));
-    return () => observer.disconnect();
-  }, [ids, enabled]);
-
-  return active;
-}
 
 /** Un link de nav que hace scroll en Inicio, o navega + deja el hash para las otras rutas. */
 function NavItem({
@@ -52,7 +28,7 @@ function NavItem({
   onClick?: () => void;
 }) {
   const className = cn(
-    "cta whitespace-nowrap border-b-2 pb-[6px] text-[var(--color-yellow)] transition-colors",
+    "cta whitespace-nowrap text-[14px] border-b-2 pb-[6px] text-[var(--color-yellow)] transition-colors",
     active ? "border-[var(--color-yellow)]" : "border-transparent"
   );
 
@@ -73,6 +49,7 @@ function NavItem({
 export function Header() {
   const location = useLocation();
   const isHome = location.pathname === "/";
+  const isProject = location.pathname.startsWith("/proyectos/");
   const activeId = useScrollSpy(NAV_IDS, isHome);
   const [open, setOpen] = useState(false);
 
@@ -104,7 +81,7 @@ export function Header() {
               id={item.id}
               label={item.label}
               isHome={isHome}
-              active={isHome && activeId === item.id}
+              active={isHome ? activeId === item.id : isProject && item.id === "proyectos"}
             />
           ))}
         </nav>
@@ -158,7 +135,7 @@ export function Header() {
                     id={item.id}
                     label={item.label}
                     isHome={isHome}
-                    active={isHome && activeId === item.id}
+                    active={isHome ? activeId === item.id : isProject && item.id === "proyectos"}
                     onClick={() => setOpen(false)}
                   />
                 </li>

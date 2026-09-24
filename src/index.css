@@ -13,7 +13,7 @@ html, body { margin: 0; padding: 0; }
    tinta más allá de su caja de layout (overshoot del glyph, no un elemento
    más ancho que el viewport). No crea un contenedor de scroll nuevo ni toca
    el vertical, así que no rompe el sticky del Header ni el IntersectionObserver de Reveal. */
-html { overflow-x: hidden; }
+html { overflow-x: clip; }
 
 /* (opcional) color de fondo base, si querés que
    donde no haya sección se vea azul */

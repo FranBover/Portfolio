@@ -1,4 +1,9 @@
-import type { FeaturedProject } from "./types";
+import type { FeaturedProject, SlideImage } from "./types";
+
+/** Dimensiones reales (public/projects/presupuestador/*.webp) para width/height y evitar saltos de layout. */
+function img(name: string, width: number, height: number, alt: string): SlideImage {
+  return { src: `/projects/presupuestador/${name}.webp`, width, height, alt };
+}
 
 export const presupuestador: FeaturedProject = {
   side: "A",
@@ -32,23 +37,23 @@ export const presupuestador: FeaturedProject = {
       subtitle: "Todo el presupuesto, en el celular y sin señal.",
       slides: [
         {
-          images: ["/projects/presupuestador/01-cuerpos-total-en-vivo.webp"],
+          images: [img("01-cuerpos-total-en-vivo", 616, 1216, "Pantalla de cuerpos con el total en vivo")],
           caption: "La pared, los cuerpos y el total que cambia con cada toque",
         },
         {
           images: [
-            "/projects/presupuestador/02-3d-cocina-en-L.webp",
-            "/projects/presupuestador/03-3d-acabados.webp",
-            "/projects/presupuestador/04-3d-despiece.webp",
+            img("02-3d-cocina-en-L", 616, 1216, "Vista 3D de una cocina en L"),
+            img("03-3d-acabados", 616, 1216, "Vista 3D con acabados aplicados"),
+            img("04-3d-despiece", 616, 1216, "Vista 3D con despiece de piezas"),
           ],
           caption: "Vista 3D: cocina en L, acabados y despiece",
         },
         {
-          images: ["/projects/presupuestador/05-terminaciones.webp"],
+          images: [img("05-terminaciones", 616, 1216, "Selector de terminaciones con color y textura")],
           caption: "Terminaciones con color, textura y precio",
         },
         {
-          images: ["/projects/presupuestador/06-pdf.webp"],
+          images: [img("06-pdf", 607, 829, "PDF de presupuesto generado")],
           caption: "El PDF que sale por WhatsApp",
         },
       ],

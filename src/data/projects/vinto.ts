@@ -1,4 +1,9 @@
-import type { FeaturedProject } from "./types";
+import type { FeaturedProject, SlideImage } from "./types";
+
+/** Dimensiones reales (public/projects/vinto/*.webp) para width/height y evitar saltos de layout. */
+function img(name: string, width: number, height: number, alt: string): SlideImage {
+  return { src: `/projects/vinto/${name}.webp`, width, height, alt };
+}
 
 export const vinto: FeaturedProject = {
   side: "A",
@@ -42,34 +47,40 @@ export const vinto: FeaturedProject = {
       slides: [
         {
           images: [
-            "/projects/vinto/01-tienda-inicio.webp",
-            "/projects/vinto/02-tienda-categoria.webp",
-            "/projects/vinto/03-producto-variantes.webp",
+            img("01-tienda-inicio", 616, 1009, "Tienda de Vinto: pantalla de inicio con categorías"),
+            img("02-tienda-categoria", 616, 1009, "Tienda de Vinto: menú de una categoría"),
+            img("03-producto-variantes", 616, 1164, "Producto con variantes de talle y color"),
           ],
           caption: "Tienda · menú por categorías y producto con variantes",
         },
         {
           images: [
-            "/projects/vinto/04-producto-extras.webp",
-            "/projects/vinto/05-carrito.webp",
-            "/projects/vinto/06-checkout-mapa.webp",
+            img("04-producto-extras", 616, 1164, "Producto con extras seleccionables"),
+            img("05-carrito", 616, 1009, "Carrito de compra de Vinto"),
+            img("06-checkout-mapa", 616, 1216, "Checkout con selector de dirección en mapa"),
           ],
           caption: "Pedido · extras, carrito y checkout con mapa",
         },
         {
-          images: ["/projects/vinto/07-checkout-pago.webp", "/projects/vinto/08-pedido-recibido.webp"],
+          images: [
+            img("07-checkout-pago", 616, 1164, "Checkout: selección de medio de pago"),
+            img("08-pedido-recibido", 616, 1009, "Confirmación de pedido recibido"),
+          ],
           caption: "Pago y confirmación por WhatsApp",
         },
         {
-          images: ["/projects/vinto/10-panel-pedidos.webp"],
+          images: [img("10-panel-pedidos", 1512, 700, "Panel de Vinto: pedidos en vivo")],
           caption: "Panel · pedidos en vivo",
         },
         {
-          images: ["/projects/vinto/11-panel-categorias.webp"],
+          images: [img("11-panel-categorias", 1540, 700, "Panel de Vinto: catálogo con categorías")],
           caption: "Panel · catálogo con drag & drop",
         },
         {
-          images: ["/projects/vinto/13-panel-descuento.webp", "/projects/vinto/14-panel-cupon.webp"],
+          images: [
+            img("13-panel-descuento", 995, 700, "Panel de Vinto: configuración de un descuento"),
+            img("14-panel-cupon", 1176, 700, "Panel de Vinto: configuración de un cupón"),
+          ],
           caption: "Panel · descuentos y cupones",
         },
         {

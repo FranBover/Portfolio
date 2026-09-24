@@ -13,6 +13,10 @@ import { ContactSection } from "../components/home/ContactSection";
 export default function Home() {
   const location = useLocation();
 
+  useEffect(() => {
+    document.title = "Francisco Bover · Desarrollador full-stack";
+  }, []);
+
   // Si se llega con un hash (p. ej. desde la vista de un proyecto: /#contacto),
   // React Router puede confirmar el pathname y el hash en dos actualizaciones
   // separadas: atado a location.hash (no a []) para no perder la segunda.

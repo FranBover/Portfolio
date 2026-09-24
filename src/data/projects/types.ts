@@ -10,8 +10,9 @@ export type SectionId =
 export type Link = { label: string; href: string };
 export type MetaRow = { k: string; v: string };
 
+export type SlideImage = { src: string; width: number; height: number; alt: string };
 /** Un grupo de 1-3 capturas que se ven juntas en el carrusel, con una sola leyenda. */
-export type SlideGroup = { images: string[]; caption: string; missingNote?: string };
+export type SlideGroup = { images: SlideImage[]; caption: string; missingNote?: string };
 export type ScreensSection = { heading: string; subtitle: string; slides: SlideGroup[] };
 
 /** `paragraphs` puede traer `**negrita**` literal: es la única sección con énfasis a mitad de oración. */
