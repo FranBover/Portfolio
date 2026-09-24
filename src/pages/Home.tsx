@@ -44,7 +44,7 @@ export default function Home() {
             <div className="mt-[72px] xl:mt-[96px]">
               <ToolsSection />
             </div>
-            <div className="mt-[72px] xl:mt-[96px]">
+            <div className="mt-[72px] xl:mt-[86px]">
               <ContactSection />
             </div>
           </div>

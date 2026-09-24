@@ -37,6 +37,10 @@ export const presupuestador: FeaturedProject = {
       subtitle: "Todo el presupuesto, en el celular y sin señal.",
       slides: [
         {
+          images: [img("portada-3d", 616, 452, "Render 3D de una cocina en L presupuestada en la app")],
+          caption: "App instalable para que un fabricante de muebles a medida presupueste en la casa del cliente, sin señal, y salga con el PDF enviado por WhatsApp.",
+        },
+        {
           images: [img("01-cuerpos-total-en-vivo", 616, 1216, "Pantalla de cuerpos con el total en vivo")],
           caption: "La pared, los cuerpos y el total que cambia con cada toque",
         },

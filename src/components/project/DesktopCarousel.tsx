@@ -10,7 +10,8 @@ type DesktopCarouselProps = {
 };
 
 const ROW_MAX_WIDTH = 700;
-const ROW_MAX_HEIGHT = 460;
+/** Igual al alto fijo de la fila de celulares: así el espacio de la foto nunca cambia entre slides y nada abajo se mueve. */
+const ROW_HEIGHT = 318;
 const ROW_GAP = 22;
 
 /** Celulares en fila (2-3 capturas verticales): mantiene la caja fija 220×318 con recorte, la referencia "esto se ve bien". */
@@ -18,11 +19,11 @@ function isPhoneGrid(images: SlideImage[]) {
   return images.length > 1 && images.every((img) => img.width < img.height);
 }
 
-/** Alto compartido para que N imágenes (1 o más, cualquier proporción) entren sin recorte en el marco. */
-function rowHeight(images: SlideImage[]) {
+/** Alto de imagen para que N imágenes (1 o más, cualquier proporción) entren sin recorte y sin pasarse del ancho del marco. */
+function imageHeight(images: SlideImage[]) {
   const sumAspect = images.reduce((sum, img) => sum + img.width / img.height, 0);
   const widthFit = (ROW_MAX_WIDTH - ROW_GAP * (images.length - 1)) / sumAspect;
-  return Math.min(ROW_MAX_HEIGHT, widthFit);
+  return Math.min(ROW_HEIGHT, widthFit);
 }
 
 /** Carrusel de escritorio: marco blanco con el/los imagen(es) del slide activo, flechas, miniaturas y teclado. */
@@ -52,16 +53,17 @@ export function DesktopCarousel({ slides, index, onIndexChange, canvasBg, eagerF
           (fitToImages ? " w-fit mx-auto" : "")
         }
       >
-        <div
-          className={"flex items-center justify-center gap-[22px] rounded-[10px] " + (fitToImages ? "" : "h-[318px]")}
-          style={{ background: canvasBg, height: fitToImages ? `${rowHeight(slide.images)}px` : undefined }}
-        >
+        <div className="flex h-[318px] items-center justify-center gap-[22px] rounded-[10px]" style={{ background: canvasBg }}>
           {slide.images.length > 0 ? (
             slide.images.map((image, i) => (
               <div
                 key={image.src}
-                className={fitToImages ? "h-full flex-none" : "h-full min-w-0 max-w-[220px] flex-1"}
-                style={fitToImages ? { width: `${rowHeight(slide.images) * (image.width / image.height)}px` } : undefined}
+                className={fitToImages ? "flex-none" : "h-full min-w-0 max-w-[220px] flex-1"}
+                style={
+                  fitToImages
+                    ? { width: `${imageHeight(slide.images) * (image.width / image.height)}px`, height: `${imageHeight(slide.images)}px` }
+                    : undefined
+                }
               >
                 <img
                   src={image.src}

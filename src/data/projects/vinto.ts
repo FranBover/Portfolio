@@ -84,9 +84,8 @@ export const vinto: FeaturedProject = {
           caption: "Panel · descuentos y cupones",
         },
         {
-          images: [],
+          images: [img("15-panel-reportes", 1152, 1135, "Panel de Vinto: reportes de ventas, productos y clientes")],
           caption: "Panel · reportes",
-          missingNote: "[FALTA: captura del mockup de reportes]",
         },
       ],
     },

@@ -19,6 +19,10 @@ html { overflow-x: clip; }
    donde no haya sección se vea azul */
 body { background: var(--color-blue); }
 
+/* Oculta la barra de scroll de la página (decisión de diseño: se ve mejor sin ella). */
+html { scrollbar-width: none; }
+html::-webkit-scrollbar { display: none; }
+
 /* suavizado para que se vea más nítido */
 body { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; text-rendering: optimizeLegibility; }
 
