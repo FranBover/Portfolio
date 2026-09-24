@@ -5,7 +5,9 @@
 *::after { box-sizing: border-box; }
 
 html { scroll-behavior: smooth; }
-html, body, #root { height: 100%; }
+/* min-height, no height: un #root con height:100% fijo corta el overflow visible
+   a la altura del viewport y con eso rompe el position:sticky del Header. */
+html, body, #root { min-height: 100%; }
 html, body { margin: 0; padding: 0; }
 
 /* (opcional) color de fondo base, si querés que

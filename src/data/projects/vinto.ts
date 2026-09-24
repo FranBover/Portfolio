@@ -28,8 +28,13 @@ export const vinto: FeaturedProject = {
     { label: "GitHub · backend", href: "https://github.com/FranBover/vinto-backend" },
     { label: "GitHub · frontend", href: "https://github.com/FranBover/vinto-frontend" },
   ],
-  // TODO Fase 3: definir la composición de capturas mirando docs/diseno/fuente (CONTENIDO.md no la especifica para Vinto).
-  cardImages: [],
+  // Composición de la tarjeta de Inicio (Inicio-proyectos.dc.html / Celular-inicio.dc.html):
+  // panel de categorías de fondo + tienda y producto con variantes superpuestos en celular.
+  cardImages: [
+    "/projects/vinto/11-panel-categorias.webp",
+    "/projects/vinto/01-tienda-inicio.webp",
+    "/projects/vinto/03-producto-variantes.webp",
+  ],
   sections: {
     pantallas: {
       heading: "Pantallas",
