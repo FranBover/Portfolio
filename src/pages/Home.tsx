@@ -35,7 +35,7 @@ export default function Home() {
       <ThreeColumnLayout
         left={<HomeLeftAside />}
         center={
-          <div className="px-5 xl:px-14">
+          <div className="px-5 xl:px-14 xl:pb-24">
             <MobileHero />
             <AboutSection />
             <div className="mt-[72px] xl:mt-[96px]">
