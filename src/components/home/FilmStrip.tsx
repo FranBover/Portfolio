@@ -1,3 +1,5 @@
+import { useEffect, useState } from "react";
+
 const OUTER = {
   aside: "inline-block self-start",
   hero: "block w-full max-w-[314px]",
@@ -9,11 +11,21 @@ const INNER = {
 } as const;
 
 export function FilmStrip({ size = "aside" }: { size?: keyof typeof INNER }) {
+  // Arranca en el poster estático (liviano) y recién después de montar pasa al
+  // WebP animado, para no pedir la animación antes de que la página sea interactiva.
+  const [src, setSrc] = useState("/cohete-poster.webp");
+
+  useEffect(() => {
+    setSrc("/cohete.webp");
+  }, []);
+
   return (
     <div className={`film-strip ${OUTER[size]}`}>
       <div className={`relative overflow-hidden rounded-[10px] ${INNER[size]}`}>
         <img
-          src="/gif.gif"
+          src={src}
+          width={500}
+          height={375}
           alt="Cohete despegando"
           className="h-full w-full object-cover"
           loading="lazy"
