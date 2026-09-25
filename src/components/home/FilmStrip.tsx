@@ -1,5 +1,5 @@
 const OUTER = {
-  aside: "inline-block",
+  aside: "inline-block self-start",
   hero: "block w-full max-w-[314px]",
 } as const;
 
