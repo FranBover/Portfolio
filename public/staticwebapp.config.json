@@ -1,0 +1,10 @@
+{
+  "routes": [
+    { "route": "/proyectos/vinto", "rewrite": "/proyectos/vinto/index.html" },
+    { "route": "/proyectos/presupuestador", "rewrite": "/proyectos/presupuestador/index.html" }
+  ],
+  "navigationFallback": {
+    "rewrite": "/index.html",
+    "exclude": ["/assets/*", "/projects/*", "/letters/*", "/textures/*", "/contact/*", "/*.{png,jpg,gif,webp,svg,ico,json,txt}"]
+  }
+}

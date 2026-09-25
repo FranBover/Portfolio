@@ -4,31 +4,57 @@
 *::before,
 *::after { box-sizing: border-box; }
 
-html { scroll-behavior: smooth; }
-html, body, #root { height: 100%; }
+@media (prefers-reduced-motion: no-preference) {
+  html { scroll-behavior: smooth; }
+}
+/* min-height, no height: un #root con height:100% fijo corta el overflow visible
+   a la altura del viewport y con eso rompe el position:sticky del Header. */
+html, body, #root { min-height: 100%; }
 html, body { margin: 0; padding: 0; }
+/* Red de seguridad: algunos títulos en Montserrat 900 pintan un par de px de
+   tinta más allá de su caja de layout (overshoot del glyph, no un elemento
+   más ancho que el viewport). No crea un contenedor de scroll nuevo ni toca
+   el vertical, así que no rompe el sticky del Header ni el IntersectionObserver de Reveal. */
+html { overflow-x: clip; }
 
 /* (opcional) color de fondo base, si querés que
    donde no haya sección se vea azul */
 body { background: var(--color-blue); }
+
+/* Oculta la barra de scroll de la página (decisión de diseño: se ve mejor sin ella). */
+html { scrollbar-width: none; }
+html::-webkit-scrollbar { display: none; }
 
 /* suavizado para que se vea más nítido */
 body { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; text-rendering: optimizeLegibility; }
 
 
 
-/* --- Fondo animado estilo "scroll up" --- */
-@keyframes bg-scroll-up {
-  from { background-position: 0 0; }
-  to   { background-position: 0 -780px; } /* altura aprox del tile */
+/* --- Patrón Kubrick animado: capa absolute inset-0 dentro de una "ventana" overflow-hidden --- */
+.kubrick-layer {
+  background-image: url("/textures/kubrick.webp");
+  background-size: 260px auto;
+  background-repeat: repeat;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .kubrick-layer { animation: kubrick-scroll 40s linear infinite; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .kubrick-layer { background-position: 0 0; }
+}
+/* 271px = alto exacto del tile a 260px de ancho (kubrick.webp es 520x542) */
+@keyframes kubrick-scroll {
+  from { background-position: 0 -271px; }
+  to   { background-position: 0 0; }
 }
 
-/* Utilidad para el patrón */
-.bg-kubrick {
-  background-image: url("/public/kubrik.png");
+/* --- Oculta la barra de scroll visible de las columnas laterales, sin perder el scroll --- */
+.scroll-clean {
+  scrollbar-width: none;
 }
-
-
+.scroll-clean::-webkit-scrollbar {
+  display: none;
+}
 
 
 /* =========================
@@ -85,46 +111,43 @@ body {
 /* =========================
    TIPOGRAFÍAS RESPONSIVE (según tu tabla)
    ========================= */
-.h1 {
-  font-family: var(--font-display-1);
-  font-weight: 900;
-  @apply text-[48px] md:text-[80px] lg:text-[96px] leading-tight;
-}
-.h2 {
-  font-family: var(--font-display-2);
-  font-weight: 400;
-  @apply text-[36px] md:text-[48px] lg:text-[56px] leading-snug;
-}
-.h3 {
-  font-family: var(--font-display-2);
-  font-weight: 400;
-  @apply text-[24px] md:text-[32px] lg:text-[40px] leading-snug;
-}
-.p {
-  font-family: var(--font-copy);
-  font-weight: 400;
-  @apply text-[16px] md:text-[20px] lg:text-[24px];
-}
-.cta {
-  font-family: var(--font-mono);
-  font-weight: 700;
-  @apply text-[14px] md:text-[16px] lg:text-[18px];
-
-  .nav-link {
-  font-family: var(--font-mono);
-  font-weight: 700;
-  /* tamaños tipo .cta */
-  @apply text-[14px] md:text-[16px] lg:text-[18px];
-  /* leve tracking como en Figma */
-  letter-spacing: 0.02em;
-}
-
+/* En @layer components: las utilities de Tailwind (incluidas las arbitrarias
+   text-[Npx]) siguen pudiendo pisar estos tamaños por defecto. Sueltas (sin
+   capa), estas reglas le ganarían siempre a cualquier utility sin importar
+   el orden del archivo — así fue como "cta text-[10.5px]" terminaba
+   mostrando el 14px de .cta en vez del tamaño chico. */
+@layer components {
+  .h1 {
+    font-family: var(--font-display-1);
+    font-weight: 900;
+    @apply text-[48px] md:text-[80px] lg:text-[96px] leading-tight;
+  }
+  .h2 {
+    font-family: var(--font-display-2);
+    font-weight: 400;
+    @apply text-[36px] md:text-[48px] lg:text-[56px] leading-snug;
+  }
+  .h3 {
+    font-family: var(--font-display-2);
+    font-weight: 400;
+    @apply text-[24px] md:text-[32px] lg:text-[40px] leading-snug;
+  }
+  .p {
+    font-family: var(--font-copy);
+    font-weight: 400;
+    @apply text-[16px] md:text-[20px] lg:text-[24px];
+  }
+  .cta {
+    font-family: var(--font-mono);
+    font-weight: 700;
+    @apply text-[14px] md:text-[16px] lg:text-[18px];
+  }
 }
 
 /* =========================
    UTILIDADES
    ========================= */
-.container-max { @apply mx-auto w-full max-w-[--container-max] px-4 sm:px-6 lg:px-8; }
+.container-max { @apply mx-auto w-full max-w-(--container-max) px-4 sm:px-6 lg:px-8; }
 
 .text-brand { color: var(--color-blue); }
 .bg-brand   { background: var(--color-blue); }
@@ -140,19 +163,21 @@ body {
 .rounded-md { border-radius: var(--radius-md); }
 .rounded-lg { border-radius: var(--radius-lg); }
 
-.nav-link {
-  font-family: var(--font-mono);
-  font-weight: 700;
-  /* tamaños tipo .cta */
-  @apply text-[14px] md:text-[16px] lg:text-[18px];
-  /* leve tracking como en Figma */
-  letter-spacing: 0.02em;
-}
+@layer components {
+  .nav-link {
+    font-family: var(--font-mono);
+    font-weight: 700;
+    /* tamaños tipo .cta */
+    @apply text-[14px] md:text-[16px] lg:text-[18px];
+    /* leve tracking como en Figma */
+    letter-spacing: 0.02em;
+  }
 
-.section-title {
-  font-family: var(--font-display-1);
-  font-weight: 900;
-  @apply text-[32px] md:text-[48px] lg:text-[56px] leading-[0.95];
+  .section-title {
+    font-family: var(--font-display-1);
+    font-weight: 900;
+    @apply text-[32px] md:text-[48px] lg:text-[56px] leading-[0.95];
+  }
 }
 
 /* =========================
@@ -162,6 +187,29 @@ body {
 
 /* Selección naranja sobre navy */
 ::selection { background: var(--color-orange); color: var(--color-blue); }
+
+/* ---- Foco de teclado: anillo amarillo por defecto en todo elemento enfocable.
+   En @layer base para que los focus-visible:outline-none de Tailwind (capa
+   utilities, de mayor prioridad) puedan seguir reemplazándolo sin duplicar
+   el foco en Button ni en el carrusel, que ya traen su propio anillo. ---- */
+@layer base {
+  :focus-visible {
+    outline: 2px solid var(--color-yellow);
+    outline-offset: 2px;
+  }
+}
+
+/* ---- Área de toque de 44px mínimo en links/botones chicos de mobile, sin
+   agrandar el elemento visible (el diseño fija su tamaño real). ---- */
+.tap-target { position: relative; }
+.tap-target::before {
+  content: "";
+  position: absolute;
+  inset: 50%;
+  transform: translate(-50%, -50%);
+  width: max(100%, 44px);
+  height: max(100%, 44px);
+}
 
 /* ---- Overlay global: grano de película + viñeta ---- */
 .fx-overlay {
@@ -259,16 +307,6 @@ body {
   .link-underline::after { transition: none; }
 }
 
-/* ---- Logo vinilo (gira en hover) ---- */
-.logo-spin { transition: transform 1.2s ease; }
-.group:hover .logo-spin,
-.logo-spin:hover { transform: rotate(360deg); }
-@media (prefers-reduced-motion: reduce) {
-  .logo-spin { transition: none; }
-  .group:hover .logo-spin,
-  .logo-spin:hover { transform: none; }
-}
-
 /* ---- Tira de cine (Hero) ---- */
 .film-strip {
   position: relative;
@@ -346,4 +384,15 @@ body {
 @media (prefers-reduced-motion: reduce) {
   .social-pop { transition: none; }
   .group:hover .social-pop { transform: none; }
+}
+
+/* ---- Modo compacto de las columnas laterales (pantallas bajas) ----
+   Solo importa en xl+ (donde estos componentes son visibles: en mobile
+   están en `hidden xl:block`), para que las dos columnas entren sin
+   scroll en laptops de poca altura (1366x768, 1512x760). */
+@media (max-height: 860px) {
+  .aside-name { font-size: 40px; }
+  .film-aside { height: 140px; width: 187px; }
+  .track-row { padding-top: 7px; padding-bottom: 7px; }
+  .ficha-row { padding-top: 6px; padding-bottom: 6px; }
 }
