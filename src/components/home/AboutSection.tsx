@@ -42,13 +42,14 @@ export function AboutSection() {
           <div className="kubrick-layer absolute inset-0" aria-hidden />
 
           <div className="relative flex flex-col items-center px-4 pb-5 pt-[18px] xl:px-[30px] xl:pb-[30px] xl:pt-[26px]">
-            <div className="flex flex-col items-center">
+            <div className="flex flex-col items-center" role="img" aria-label="Sobre mí">
               <div className="flex items-end justify-center">
                 {SOBRE.map((L, i) => (
                   <img
                     key={L.ch}
                     src={`/letters/${L.ch}.png`}
-                    alt={L.ch}
+                    alt=""
+                    aria-hidden
                     style={{ "--rot": `${L.r}deg`, "--dy": `${L.dy}px`, transitionDelay: `${i * 40}ms` } as React.CSSProperties}
                     className={letterClass}
                   />
@@ -59,7 +60,8 @@ export function AboutSection() {
                   <img
                     key={L.ch}
                     src={`/letters/${L.ch}.png`}
-                    alt={L.ch}
+                    alt=""
+                    aria-hidden
                     style={{ "--rot": `${L.r}deg`, "--dy": `${L.dy}px`, transitionDelay: `${(SOBRE.length + i) * 40}ms` } as React.CSSProperties}
                     className={letterClass}
                   />

@@ -5,7 +5,7 @@ import type { FeaturedProject } from "../../data/projects/types";
 export function MobileProjectHero({ project }: { project: FeaturedProject }) {
   return (
     <div className="flex flex-col gap-3.5 pb-5 pt-5 xl:hidden">
-      <Link to="/#proyectos" className="cta text-[12px] text-[var(--color-yellow)]">
+      <Link to="/#proyectos" className="tap-target inline-block cta text-[12px] text-[var(--color-yellow)]">
         ← Todos los proyectos
       </Link>
       <div>

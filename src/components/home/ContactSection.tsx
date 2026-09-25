@@ -91,7 +91,7 @@ export function ContactSection() {
           />
 
           <div className="mt-3 flex items-center justify-between gap-3">
-            <span className="cta text-[11px] tracking-[.18em] text-[rgba(230,213,184,.5)]" style={{ textTransform: "uppercase" }}>
+            <span className="cta text-[11px] tracking-[.18em] text-[rgba(230,213,184,.62)]" style={{ textTransform: "uppercase" }}>
               Toma 1 · ¡Acción!
             </span>
             <Button type="submit" variant="solid" disabled={status === "sending"}>
@@ -123,7 +123,7 @@ export function ContactSection() {
               Hecho a mano en Córdoba · © {new Date().getFullYear()}
             </span>
           </div>
-          <a href="#inicio" className="cta shrink-0 whitespace-nowrap text-[12px] text-[var(--color-yellow)]">
+          <a href="#inicio" className="tap-target inline-block shrink-0 whitespace-nowrap cta text-[12px] text-[var(--color-yellow)]">
             Arriba ↑
           </a>
         </footer>

@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import type { SlideGroup, SlideImage } from "../../data/projects/types";
+import { prefersReducedMotion } from "../../lib/motion";
 
 type FlatItem =
   | { key: string; slideIndex: number; caption: string; kind: "image"; image: SlideImage; fitToImage: boolean }
@@ -139,10 +140,16 @@ export function MobileCarousel({ slides, onSlideIndexChange, canvasBg, eagerFirs
               role="tab"
               aria-selected={i === activeItem}
               aria-label={`Ir a la imagen ${i + 1} de ${items.length}`}
-              onClick={() => itemRefs.current[i]?.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" })}
+              onClick={() =>
+                itemRefs.current[i]?.scrollIntoView({
+                  behavior: prefersReducedMotion() ? "auto" : "smooth",
+                  inline: "center",
+                  block: "nearest",
+                })
+              }
               className={
-                "block rounded-full transition-all " +
-                (i === activeItem ? "h-2 w-[22px] bg-[var(--color-yellow)]" : "h-2 w-2 bg-[rgba(230,213,184,.3)]")
+                "tap-target block rounded-full transition-all " +
+                (i === activeItem ? "h-2 w-[22px] bg-[var(--color-yellow)]" : "h-2 w-2 bg-[rgba(230,213,184,.45)]")
               }
             />
           ))}

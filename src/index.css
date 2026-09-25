@@ -4,7 +4,9 @@
 *::before,
 *::after { box-sizing: border-box; }
 
-html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: no-preference) {
+  html { scroll-behavior: smooth; }
+}
 /* min-height, no height: un #root con height:100% fijo corta el overflow visible
    a la altura del viewport y con eso rompe el position:sticky del Header. */
 html, body, #root { min-height: 100%; }
@@ -185,6 +187,29 @@ body {
 
 /* Selección naranja sobre navy */
 ::selection { background: var(--color-orange); color: var(--color-blue); }
+
+/* ---- Foco de teclado: anillo amarillo por defecto en todo elemento enfocable.
+   En @layer base para que los focus-visible:outline-none de Tailwind (capa
+   utilities, de mayor prioridad) puedan seguir reemplazándolo sin duplicar
+   el foco en Button ni en el carrusel, que ya traen su propio anillo. ---- */
+@layer base {
+  :focus-visible {
+    outline: 2px solid var(--color-yellow);
+    outline-offset: 2px;
+  }
+}
+
+/* ---- Área de toque de 44px mínimo en links/botones chicos de mobile, sin
+   agrandar el elemento visible (el diseño fija su tamaño real). ---- */
+.tap-target { position: relative; }
+.tap-target::before {
+  content: "";
+  position: absolute;
+  inset: 50%;
+  transform: translate(-50%, -50%);
+  width: max(100%, 44px);
+  height: max(100%, 44px);
+}
 
 /* ---- Overlay global: grano de película + viñeta ---- */
 .fx-overlay {

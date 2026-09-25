@@ -1,4 +1,5 @@
 import type { FeaturedProject } from "../../data/projects/types";
+import { prefersReducedMotion } from "../../lib/motion";
 import { ProjectLinks, NextProjectCard } from "./ProjectLinksAndNext";
 
 /** Cierre solo en celular: lo que en desktop vive en la columna derecha, más el mismo footer del sitio. */
@@ -16,8 +17,8 @@ export function ProjectMobileClosing({ project }: { project: FeaturedProject }) 
         </div>
         <button
           type="button"
-          onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-          className="cta shrink-0 whitespace-nowrap text-[12px] text-[var(--color-yellow)]"
+          onClick={() => window.scrollTo({ top: 0, behavior: prefersReducedMotion() ? "auto" : "smooth" })}
+          className="tap-target cta shrink-0 whitespace-nowrap text-[12px] text-[var(--color-yellow)]"
         >
           Arriba ↑
         </button>
