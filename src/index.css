@@ -307,16 +307,6 @@ body {
   .link-underline::after { transition: none; }
 }
 
-/* ---- Logo vinilo (gira en hover) ---- */
-.logo-spin { transition: transform 1.2s ease; }
-.group:hover .logo-spin,
-.logo-spin:hover { transform: rotate(360deg); }
-@media (prefers-reduced-motion: reduce) {
-  .logo-spin { transition: none; }
-  .group:hover .logo-spin,
-  .logo-spin:hover { transform: none; }
-}
-
 /* ---- Tira de cine (Hero) ---- */
 .film-strip {
   position: relative;

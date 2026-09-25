@@ -35,10 +35,12 @@ export const vinto: FeaturedProject = {
   ],
   // Composición de la tarjeta de Inicio (Inicio-proyectos.dc.html / Celular-inicio.dc.html):
   // panel de categorías de fondo + tienda y producto con variantes superpuestos en celular.
+  // Versiones "-card" recortadas al tamaño real que pide la tarjeta (máx. 112-380px de ancho);
+  // los mismos originales se reusan a tamaño completo en el carrusel de "Pantallas".
   cardImages: [
-    "/projects/vinto/11-panel-categorias.webp",
-    "/projects/vinto/01-tienda-inicio.webp",
-    "/projects/vinto/03-producto-variantes.webp",
+    "/projects/vinto/11-panel-categorias-card.webp",
+    "/projects/vinto/01-tienda-inicio-card.webp",
+    "/projects/vinto/03-producto-variantes-card.webp",
   ],
   sections: {
     pantallas: {

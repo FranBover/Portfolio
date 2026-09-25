@@ -29,7 +29,13 @@ export const presupuestador: FeaturedProject = {
   stack: ["React 19", "TypeScript", "Zustand", "Dexie", "Workbox", "Three.js", "react-pdf", "Vitest"],
   // Sin link a la app (expondría la lista de precios) ni al repositorio.
   links: [],
-  cardImages: ["/projects/presupuestador/portada-3d.webp", "/projects/presupuestador/01-cuerpos-total-en-vivo.webp"],
+  // "01-cuerpos..." tiene una versión "-card" al tamaño real de la tarjeta (máx. 124px de
+  // ancho); el original se reusa a tamaño completo en el carrusel de "Pantallas". portada-3d
+  // ya es lo bastante chico (616px) para su uso máximo acá (400px), no necesita variante.
+  cardImages: [
+    "/projects/presupuestador/portada-3d.webp",
+    "/projects/presupuestador/01-cuerpos-total-en-vivo-card.webp",
+  ],
   cardBadge: { label: "BOVER MADERAS", color: "#0C6C3C" },
   sections: {
     pantallas: {
